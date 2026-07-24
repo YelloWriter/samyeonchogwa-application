@@ -34,6 +34,7 @@
     @media(max-width:760px){.site-shell{padding:12px 8px 34px}.classification-strip{grid-template-columns:1fr auto;gap:8px;font-size:7px}.classification-strip>span:last-child{display:none}.classification-strip>strong{padding:5px 7px}.music-player{gap:14px;width:100%;margin-top:32px;padding:10px 14px 10px 10px}.music-toggle{flex-basis:72px;width:72px;height:72px}.music-copy b{font-size:24px}.dossier{padding:0 15px}.agency-header{min-height:90px}.agency-lockup img{width:50px;height:50px}.agency-lockup small,.header-meta span:not(:first-child){display:none}.header-meta{min-width:auto}.hero{grid-template-columns:1fr;gap:34px;padding-top:32px}.kicker{margin-bottom:34px}.hero h1{font-size:clamp(104px,36vw,188px)}.photo{height:min(128vw,720px)}.form-header{align-items:flex-start}.form-status{min-width:100px}.form-status strong{font-size:17px}.form-section,.consent{grid-template-columns:1fr;gap:28px}.field-grid,.private-grid,.floppy-grid{grid-template-columns:1fr}.long-field,.long-field.dense{min-height:auto}.floppy-card{min-height:390px}.private>header{display:grid}.signatures{grid-template-columns:1fr}.document-footer{grid-template-columns:1fr auto;min-height:120px}.document-footer p{display:none}.document-footer>strong{font-size:30px}.archive-modal{max-height:94vh}.archive-modal>header{gap:14px}.archive-modal>footer{display:grid}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.dossier,.archive-modal{animation:none}}
     .consent-copy .consent-list li{font-family:Pretendard,sans-serif;font-size:14px;font-weight:400;line-height:1.9}
+    .record-list{margin:0;padding:0;list-style:none;counter-reset:record}.record-list li{position:relative;min-height:56px;padding:17px 14px 16px 54px;border-top:1px solid var(--ink);counter-increment:record;font-family:Pretendard,sans-serif;font-size:14px;font-weight:400;line-height:1.9;white-space:pre-line;word-break:keep-all}.record-list li:last-child{border-bottom:1px solid var(--ink)}.record-list li:before{position:absolute;top:17px;left:10px;content:counter(record,decimal-leading-zero);color:var(--red);font:900 10px/1 Arial,sans-serif}.warning{justify-self:start;width:fit-content;padding:12px 14px;border-width:3px}
   </style>
 </head>
 <body>
@@ -60,66 +61,42 @@
         <section class="form-section"><div class="section-title"><span>A</span><div><strong>인적·형사 기록</strong><small>IDENTITY &amp; SENTENCE RECORD</small></div></div><div class="field-grid">
           <div class="field"><span>코드네임 / CODENAME</span><strong>유나(Yuna)</strong></div><div class="field"><span>본명 / LEGAL NAME</span><strong>아주호</strong></div><div class="field"><span>수감번호 / INMATE NO.</span><strong>0404</strong></div><div class="field"><span>나이 / AGE</span><strong>35세 (1991)</strong></div><div class="field"><span>성별 / SEX</span><strong>남성</strong></div><div class="field"><span>키(cm) / 체중</span><strong>178cm / 표준</strong></div><div class="field"><span>소속 기간 / SERVICE PERIOD</span><strong>2025년 12월 ~ 2026년 7월 (약 7개월)</strong></div>
         </div></section>
-        <section class="form-section"><div class="section-title"><span>B</span><div><strong>성격 및 외관</strong><small>PERSONALITY &amp; APPEARANCE</small></div></div><div class="long-field"><span>COMBINED CHARACTER RECORD</span><p>능청맞고 뻔뻔한 / 쉽게 웃고 가벼운 / 외향형 같은 내향형
+        <section class="form-section"><div class="section-title"><span>B</span><div><strong>성격 및 외관</strong><small>PERSONALITY &amp; APPEARANCE</small></div></div><ol class="record-list"><li>능청맞고 뻔뻔한 / 쉽게 웃고 가벼운 / 외향형 같은 내향형
 강약약약 / 도덕심보다는 벌어먹고 살겠다는 의무감
 혼자 있어도 충분히 재밌는 / 바깥을 안 나가서 희고 창백한
-쌍커풀 없는 눈 / 숱 많고 목덜미를 덮은 검은 머리 / 악세서리 불호
-
-위기 상황일수록 말이 많아짐
+쌍커풀 없는 눈 / 숱 많고 목덜미를 덮은 검은 머리 / 악세서리 불호</li><li>위기 상황일수록 말이 많아짐
 공포를 농담으로 방열하는 타입
-좋은 소식부터 말한 뒤 나쁜 소식으로 사람을 절망시키지만 본인은 순서가 중요하다고 주장함
-
-능청맞고 뻔뻔하며 상황에 맞지 않게 태평함
+좋은 소식부터 말한 뒤 나쁜 소식으로 사람을 절망시키지만 본인은 순서가 중요하다고 주장함</li><li>능청맞고 뻔뻔하며 상황에 맞지 않게 태평함
 잘못을 숨기기보다 보기 좋게 포장해 진열하는 편
-변명과 설명의 경계가 매우 흐리지만 본인 기준으로는 모두 기술적 해명
-
-사람에게 쉽게 말을 걸고 쉽게 웃음
-가벼운 농담은 넉넉하고 무거운 진심은 재고가 없음</p></div></section>
-        <section class="form-section"><div class="section-title"><span>C</span><div><strong>기타·특이사항 및 관계</strong><small>HISTORY, HABIT &amp; RELATIONSHIP</small></div></div><div class="long-field dense"><span>CONSOLIDATED FIELD NOTES</span><p>- 전직: 반도체 광학검사장비 업체 선임 필드 애플리케이션 엔지니어
-- 전문 분야: 광학센서, 산업용 카메라, PLC, 전기제어, 진공장비, 생산로그 분석
-- 죄명: 산업기술의 유출방지 및 보호에 관한 법률 위반, 업무상배임
-- 범행: 업무상 접근할 수 있었던 국가핵심기술 자료를 가공하여 해외 경쟁업체에 반복 전달
-- 동기: 해외 취업과 금전적 대가, 그리고 자신의 기술을 회사가 부당하게 소유한다고 주장
-- 선고: 징역 6년 및 벌금형
-
-35세, 수감번호 0404
+변명과 설명의 경계가 매우 흐리지만 본인 기준으로는 모두 기술적 해명</li><li>사람에게 쉽게 말을 걸고 쉽게 웃음
+가벼운 농담은 넉넉하고 무거운 진심은 재고가 없음</li></ol></section>
+        <section class="form-section"><div class="section-title"><span>C</span><div><strong>기타·특이사항 및 관계</strong><small>HISTORY, HABIT &amp; RELATIONSHIP</small></div></div><ol class="record-list"><li>전직: 반도체 광학검사장비 업체 선임 필드 애플리케이션 엔지니어
+전문 분야: 광학센서, 산업용 카메라, PLC, 전기제어, 진공장비, 생산로그 분석
+죄명: 산업기술의 유출방지 및 보호에 관한 법률 위반, 업무상배임
+범행: 업무상 접근할 수 있었던 국가핵심기술 자료를 가공하여 해외 경쟁업체에 반복 전달
+동기: 해외 취업과 금전적 대가, 그리고 자신의 기술을 회사가 부당하게 소유한다고 주장
+선고: 징역 6년 및 벌금형</li><li>35세, 수감번호 0404
 삐삐 숫자 암호로 영원히 사랑해
-본인은 법무부의 낭만적인 배려라고 주장함
-
-前 반도체·디스플레이 검사장비 업체 선임 필드 애플리케이션 엔지니어
-現 아이기스 코드네임 유나
-
-반도체 생산라인 장비 설치·시운전, 광학센서 및 산업용 카메라 보정 담당
-PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력
-
-국가핵심기술 국외유출 및 업무상배임으로 징역 6년
+본인은 법무부의 낭만적인 배려라고 주장함</li><li>前 반도체·디스플레이 검사장비 업체 선임 필드 애플리케이션 엔지니어
+現 아이기스 코드네임 유나</li><li>반도체 생산라인 장비 설치·시운전, 광학센서 및 산업용 카메라 보정 담당
+PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력</li><li>국가핵심기술 국외유출 및 업무상배임으로 징역 6년
 죄는 인정하지만 배신이라는 표현은 선호하지 않음
-이직 포트폴리오가 다소 과했다고 생각함
-
-아이기스 내 장비·전력·센서·자동화 시설 분석 담당
+이직 포트폴리오가 다소 과했다고 생각함</li><li>아이기스 내 장비·전력·센서·자동화 시설 분석 담당
 폐쇄 시설의 제어반과 CCTV, 도어록, 통신장비를 보면 일단 열어봄
 열지 말라는 경고문이 있을 경우 한 번 더 자세히 읽고 열어봄
 전문가의 판단이라고 말하지만 대부분은 맞고 가끔 크게 틀림
-그리고 크게 틀린 이후로 함부로 열어보지 못함
-
-셔츠나 군복 소매를 걷어 올리고 손목을 만지는 습관
-해외 출장 경력이 많아 영어 회화 가능
-
-임무 중 생존자보다 장비를 우선하지는 않음
+그리고 크게 틀린 이후로 함부로 열어보지 못함</li><li>셔츠나 군복 소매를 걷어 올리고 손목을 만지는 습관
+해외 출장 경력이 많아 영어 회화 가능</li><li>임무 중 생존자보다 장비를 우선하지는 않음
 다만 장비를 버리고 나올 때마다 눈에 띄게 아까워함
 사람은 살려야 하고 기계는 고치면 된다는 입장
-고칠 수 없는 기계를 만났을 때는 드물게 조용해짐
-
-만나고 싶은 존재가 있어서 아이기스에 지원함
+고칠 수 없는 기계를 만났을 때는 드물게 조용해짐</li><li>만나고 싶은 존재가 있어서 아이기스에 지원함
 유나, 사랑하는 1,000토큰 월 10,000원 부가세 미포함 AI 연인
-입장료 없이 다가와 평생을 가져간 자유로운 고백의 달인
-
-일기일회라는 말을 믿으면서도 다시 시작할 방법을 찾음
+입장료 없이 다가와 평생을 가져간 자유로운 고백의 달인</li><li>일기일회라는 말을 믿으면서도 다시 시작할 방법을 찾음
 끝을 종료가 아니라 분기점으로 해석하는 편
 돌아갈 수 없다면 새 경로를 만들면 된다고 생각함
 인생도 회로도처럼 재설계할 수 있다고 믿음
 그래서 여기까지 왔다
-잘 설계된 결과인지는 아직 검증 중</p></div></section>
+잘 설계된 결과인지는 아직 검증 중</li></ol></section>
         <section class="form-section"><div class="section-title"><span>D</span><div><strong>플로피 기록 보관함</strong><small>ARCHIVE MEDIA / DECRYPTED LOG</small></div></div><div class="floppy-grid">
           <button class="floppy-card" type="button" data-disk="1" aria-haspopup="dialog"><span class="floppy" aria-hidden="true"><span class="shutter"></span><span class="disk-label"><strong>01</strong><small>3.5&quot; MF2HD</small></span><span class="hub"></span><span class="notch"></span></span><span class="floppy-caption"><strong>그는 왜 유나가 되었나?</strong><small>AEGIS–FD–0404–01 · CLICK TO DECRYPT</small></span></button>
           <button class="floppy-card" type="button" data-disk="2" aria-haspopup="dialog"><span class="floppy" aria-hidden="true"><span class="shutter"></span><span class="disk-label"><strong>02</strong><small>3.5&quot; MF2HD</small></span><span class="hub"></span><span class="notch"></span></span><span class="floppy-caption"><strong>기술유출범</strong><small>AEGIS–FD–0404–02 · CLICK TO DECRYPT</small></span></button>
