@@ -199,7 +199,7 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력
     };
     const modal=document.getElementById("archive-modal"),title=document.getElementById("modal-title"),serial=document.getElementById("modal-serial"),log=document.getElementById("modal-log"),closeButton=modal.querySelector(".close");
     let opener=null;
-    function openDisk(id,button){const item=logs[id];if(!item)return;opener=button;title.textContent=item.title;serial.textContent=item.serial;log.textContent=item.text;log.scrollTop=0;modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");closeButton.focus()}
+    function openDisk(id,button){const item=logs[id];if(!item)return;opener=button;title.textContent=item.title;serial.textContent=item.serial;log.textContent=item.text;log.scrollTop=0;modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");closeButton.focus({preventScroll:true});requestAnimationFrame(()=>{log.scrollTop=0;log.scrollTo({top:0,left:0,behavior:"auto"})})}
     function closeDisk(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open");if(opener)opener.focus()}
     document.querySelectorAll("[data-disk]").forEach(button=>button.addEventListener("click",()=>openDisk(button.dataset.disk,button)));
     closeButton.addEventListener("click",closeDisk);
