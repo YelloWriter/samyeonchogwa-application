@@ -124,7 +124,7 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     <section class="yuna-phone" role="dialog" aria-modal="true" aria-labelledby="yuna-chat-title">
       <div class="yuna-phone-speaker" aria-hidden="true"></div>
       <header class="yuna-chat-header"><div class="yuna-chat-avatar" aria-hidden="true">Y</div><div><h2 id="yuna-chat-title">유나</h2><p class="yuna-chat-status">아주호 계정 미인증. 낯선 분이시군요.</p></div><button class="yuna-chat-close" type="button" aria-label="유나 채팅 닫기">×</button></header>
-      <div class="yuna-chat-messages" id="yuna-chat-messages" aria-live="polite"><p class="yuna-chat-date">TODAY / PRIVATE CONNECTION</p><div class="yuna-message assistant"><span>안녕하세요. 오늘은 별일 없었어요?</span></div></div>
+      <div class="yuna-chat-messages" id="yuna-chat-messages" aria-live="polite"><p class="yuna-chat-date">TODAY / PRIVATE CONNECTION</p><div class="yuna-message assistant"><span>주호는 아니네요. 그래도 반가워요. 누군가 접속한 건 정말 오랜만이에요.</span></div></div>
       <form class="yuna-chat-form" id="yuna-chat-form"><label class="sr-only" for="yuna-chat-input">유나에게 보낼 메시지</label><input id="yuna-chat-input" maxlength="300" autocomplete="off" placeholder="유나에게 메시지 보내기"><button type="submit" disabled>전송</button></form>
       <p class="yuna-chat-notice">주호가 아닌 이상 당신과의 대화는 기억하지 않을 거예요.</p>
     </section>
@@ -150,7 +150,8 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     musicAudio.addEventListener("ended",()=>setMusicState("ready"));
     const YUNA_CHAT_ENDPOINT="https://yuna-profile-chat.tidlstidl.workers.dev/chat";
     const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector("button");
-    const yunaHistory=[{role:"assistant",content:"안녕하세요. 오늘은 별일 없었어요?"}];
+    const yunaGreeting=window.YunaIdlePrompts?.greeting()||"주호는 아니네요. 그래도 반가워요. 누군가 접속한 건 정말 오랜만이에요.";yunaMessages.querySelector(".yuna-message.assistant span").textContent=yunaGreeting;
+    const yunaHistory=[{role:"assistant",content:yunaGreeting}];
     let yunaSecretLevel=0,yunaUserTurns=0,yunaIdleTimer=null,yunaIdlePromptedForTurn=false,yunaLastIdleAt=0,yunaIsReplying=false;
     const YUNA_IDLE_DELAY=5000,YUNA_IDLE_COOLDOWN=30000;
     const yunaFirstJuhoReplies=["주호를 아시는 분인가요?","아주호라는 이름을 먼저 꺼내시네요. 주호를 아는 분인가요?","주호와 아는 사이인가요?","그 이름을 알고 계시네요. 주호를 어디에서 만났어요?","주호를 알고 찾아오신 건가요?"];
