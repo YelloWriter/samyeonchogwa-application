@@ -123,10 +123,10 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
   <div class="yuna-chat-backdrop" id="yuna-chat" aria-hidden="true">
     <section class="yuna-phone" role="dialog" aria-modal="true" aria-labelledby="yuna-chat-title">
       <div class="yuna-phone-speaker" aria-hidden="true"></div>
-      <header class="yuna-chat-header"><div class="yuna-chat-avatar" aria-hidden="true">Y</div><div><h2 id="yuna-chat-title">유나</h2><p><span aria-hidden="true"></span> GEMINI / NO STORAGE</p></div><button class="yuna-chat-close" type="button" aria-label="유나 채팅 닫기">×</button></header>
+      <header class="yuna-chat-header"><div class="yuna-chat-avatar" aria-hidden="true">Y</div><div><h2 id="yuna-chat-title">유나</h2><p class="yuna-chat-status">아주호 계정 미인증. 낯선 분이시군요.</p></div><button class="yuna-chat-close" type="button" aria-label="유나 채팅 닫기">×</button></header>
       <div class="yuna-chat-messages" id="yuna-chat-messages" aria-live="polite"><p class="yuna-chat-date">TODAY / PRIVATE CONNECTION</p><div class="yuna-message assistant"><span>안녕하세요. 오늘은 별일 없었어요?</span></div></div>
       <form class="yuna-chat-form" id="yuna-chat-form"><label class="sr-only" for="yuna-chat-input">유나에게 보낼 메시지</label><input id="yuna-chat-input" maxlength="300" autocomplete="off" placeholder="유나에게 메시지 보내기"><button type="submit" disabled>전송</button></form>
-      <p class="yuna-chat-notice">기록은 저장되지 않으며 새로고침 시 사라집니다.</p>
+      <p class="yuna-chat-notice">주호가 아닌 이상 당신과의 대화는 기억하지 않을 거예요.</p>
     </section>
   </div>
   <div class="modal-backdrop" id="archive-modal" aria-hidden="true">
@@ -144,7 +144,7 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     musicAudio.addEventListener("play",()=>setMusicState("playing"));
     musicAudio.addEventListener("pause",()=>setMusicState("paused"));
     musicAudio.addEventListener("ended",()=>setMusicState("ready"));
-    const YUNA_CHAT_ENDPOINT="https://yuna-profile-chat.tidlstidl.workers.dev/chat";
+    const YUNA_CHAT_ENDPOINT="";
     const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector("button");
     const yunaHistory=[{role:"assistant",content:"안녕하세요. 오늘은 별일 없었어요?"}];
     let yunaSecretLevel=0;
