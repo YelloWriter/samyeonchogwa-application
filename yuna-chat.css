@@ -1,0 +1,369 @@
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.yuna-disk-trigger {
+  display: inline-flex;
+  gap: 13px;
+  align-items: center;
+  align-self: center;
+  margin: 9px 0 12px;
+  padding: 9px 15px 9px 10px;
+  color: var(--ink);
+  border: 1px dashed rgba(25, 25, 23, 0.72);
+  background: rgba(226, 219, 205, 0.22);
+  box-shadow: 4px 4px 0 rgba(25, 25, 23, 0.12);
+  cursor: pointer;
+  font-family: Pretendard, sans-serif;
+  text-align: left;
+  transition: 160ms ease;
+}
+
+.yuna-disk-trigger:hover,
+.yuna-disk-trigger:focus-visible {
+  color: var(--paper-light);
+  border-color: var(--red);
+  background: var(--red);
+  outline: 0;
+  transform: translateY(-2px) rotate(-0.5deg);
+}
+
+.yuna-disk-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid currentColor;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 25px;
+  line-height: 1;
+  filter: grayscale(1) contrast(1.25);
+}
+
+.yuna-disk-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.yuna-disk-copy strong {
+  font: 900 11px/1 Pretendard, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.yuna-disk-copy small {
+  color: var(--red);
+  font: 800 9px/1 Pretendard, sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.yuna-disk-trigger:hover small,
+.yuna-disk-trigger:focus-visible small {
+  color: var(--paper-light);
+}
+
+.yuna-chat-backdrop {
+  position: fixed;
+  z-index: 140;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: clamp(10px, 3vw, 34px);
+  background:
+    radial-gradient(circle at 50% 38%, rgba(185, 79, 67, 0.18), transparent 36%),
+    rgba(7, 8, 7, 0.88);
+  backdrop-filter: blur(9px);
+}
+
+.yuna-chat-backdrop.open {
+  display: grid;
+}
+
+.yuna-phone {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  width: min(460px, 100%);
+  height: min(760px, calc(100vh - 28px));
+  padding: 24px 10px 12px;
+  overflow: hidden;
+  color: #171815;
+  border: 1px solid rgba(239, 229, 211, 0.36);
+  border-radius: 32px;
+  background: #151614;
+  box-shadow:
+    0 36px 100px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 2px #30312d;
+  animation: yuna-reveal 220ms ease-out both;
+}
+
+.yuna-phone-speaker {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  left: 50%;
+  width: 66px;
+  height: 4px;
+  border-radius: 20px;
+  background: #545650;
+  transform: translateX(-50%);
+}
+
+.yuna-chat-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 11px;
+  align-items: center;
+  padding: 13px 14px 12px;
+  color: #f0e8dc;
+  border-radius: 19px 19px 0 0;
+  background: #22231f;
+}
+
+.yuna-chat-avatar {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: #f4ede2;
+  border: 1px solid #a74338;
+  border-radius: 50%;
+  background: var(--red-dark);
+  font: 900 15px/1 Arial, sans-serif;
+}
+
+.yuna-chat-header h2 {
+  margin: 0 0 5px;
+  font: 800 15px/1 Pretendard, sans-serif;
+}
+
+.yuna-chat-header p {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin: 0;
+  color: #a5a59d;
+  font: 700 7px/1 Arial, sans-serif;
+  letter-spacing: 0.13em;
+}
+
+.yuna-chat-header p span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a74338;
+  box-shadow: 0 0 9px rgba(185, 79, 67, 0.8);
+}
+
+.yuna-chat-close {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  place-items: center;
+  color: #ddd4c8;
+  border: 1px solid #54564f;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  font: 400 24px/1 Arial, sans-serif;
+}
+
+.yuna-chat-close:hover,
+.yuna-chat-close:focus-visible {
+  color: #fff;
+  border-color: var(--red);
+  background: var(--red);
+  outline: 0;
+}
+
+.yuna-chat-messages {
+  min-height: 0;
+  overflow: auto;
+  padding: 20px 14px 26px;
+  background:
+    linear-gradient(rgba(245, 240, 229, 0.93), rgba(234, 228, 215, 0.96)),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(34, 35, 31, 0.05) 3px,
+      rgba(34, 35, 31, 0.05) 4px
+    );
+  overscroll-behavior: contain;
+}
+
+.yuna-chat-date {
+  margin: 0 0 18px;
+  color: #817e75;
+  font: 800 7px/1 Arial, sans-serif;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.yuna-message {
+  display: flex;
+  margin-top: 9px;
+}
+
+.yuna-message span {
+  max-width: 82%;
+  padding: 11px 13px;
+  border: 1px solid rgba(33, 34, 30, 0.18);
+  font: 500 13px/1.65 Pretendard, sans-serif;
+  word-break: keep-all;
+}
+
+.yuna-message.assistant {
+  justify-content: flex-start;
+}
+
+.yuna-message.assistant span {
+  border-radius: 3px 15px 15px;
+  background: #faf6ed;
+  box-shadow: 3px 4px 0 rgba(25, 25, 23, 0.08);
+}
+
+.yuna-message.user {
+  justify-content: flex-end;
+}
+
+.yuna-message.user span {
+  color: #fff9ef;
+  border-color: var(--red-dark);
+  border-radius: 15px 3px 15px 15px;
+  background: var(--red-dark);
+}
+
+.yuna-typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  min-width: 52px;
+}
+
+.yuna-typing i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: yuna-typing 1s ease-in-out infinite;
+}
+
+.yuna-typing i:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.yuna-typing i:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.yuna-chat-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 11px 12px 8px;
+  background: #22231f;
+}
+
+.yuna-chat-form input {
+  min-width: 0;
+  height: 43px;
+  padding: 0 13px;
+  color: #eee6d9;
+  border: 1px solid #4d4e49;
+  border-radius: 5px;
+  background: #141512;
+  font: 500 13px/1 Pretendard, sans-serif;
+}
+
+.yuna-chat-form input::placeholder {
+  color: #797a74;
+}
+
+.yuna-chat-form input:focus {
+  border-color: var(--red);
+  outline: 2px solid rgba(185, 79, 67, 0.25);
+}
+
+.yuna-chat-form button {
+  min-width: 62px;
+  padding: 0 13px;
+  color: #fff8ed;
+  border: 1px solid var(--red);
+  border-radius: 5px;
+  background: var(--red);
+  cursor: pointer;
+  font: 800 11px/1 Pretendard, sans-serif;
+}
+
+.yuna-chat-form button:disabled {
+  border-color: #4c4d48;
+  background: #4c4d48;
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.yuna-chat-notice {
+  margin: 0;
+  padding: 3px 12px 0;
+  color: #777972;
+  background: #151614;
+  font: 600 7px/1.4 Pretendard, sans-serif;
+  text-align: center;
+}
+
+@keyframes yuna-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes yuna-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 760px) {
+  .yuna-disk-trigger {
+    margin-top: 6px;
+  }
+
+  .yuna-phone {
+    height: min(760px, calc(100dvh - 16px));
+    padding-top: 22px;
+    border-radius: 25px;
+  }
+
+  .yuna-message span {
+    max-width: 88%;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yuna-phone,
+  .yuna-typing i {
+    animation: none;
+  }
+}
