@@ -36,6 +36,7 @@
     .consent-copy .consent-list li{font-family:Pretendard,sans-serif;font-size:14px;font-weight:400;line-height:1.9}
     .record-list{margin:0;padding:0;list-style:none;counter-reset:record}.record-list li{position:relative;min-height:56px;padding:17px 14px 16px 54px;border-top:1px solid var(--ink);counter-increment:record;font-family:Pretendard,sans-serif;font-size:14px;font-weight:400;line-height:1.9;white-space:pre-line;word-break:keep-all}.record-list li:last-child{border-bottom:1px solid var(--ink)}.record-list li:before{position:absolute;top:17px;left:10px;content:counter(record,decimal-leading-zero);color:var(--red);font:900 10px/1 Arial,sans-serif}.warning{justify-self:start;width:fit-content;padding:12px 14px;border-width:3px}
   </style>
+  <link rel="stylesheet" href="../yuna-chat.css">
 </head>
 <body>
   <main class="site-shell">
@@ -51,6 +52,7 @@
           <p class="document-label">특수 사면 대상자 지원 문서</p>
           <img class="hero-title-image" src="../title-samyeonchogwa.png" alt="사면초과">
           <div class="music-player" data-state="checking"><button class="music-toggle" type="button" aria-label="배경음악 재생" disabled><span class="vinyl-disc" aria-hidden="true"></span><span class="music-icon" aria-hidden="true">▶</span></button><span class="music-copy" aria-live="polite"><b>DISCO</b><em>음원 확인 중</em></span><audio loop preload="metadata" src="../bgm.mp3"></audio></div>
+          <button class="yuna-disk-trigger" id="yuna-chat-trigger" type="button" aria-haspopup="dialog" aria-expanded="false"><span class="yuna-disk-icon" aria-hidden="true">💾</span><span class="yuna-disk-copy"><strong>수상한 디스크</strong><small>누르면 아주 큰일이 남</small></span></button>
           <p class="hero-lead">“낭떠러지라니 표현이 너무 비관적이네.<br>전망 좋은 분기점이라고 합시다.”</p>
           <p class="hero-tags">일기일회 시절인연 무한회귀<br>재정의 분기점 다시 시작</p>
         </div>
@@ -118,6 +120,15 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
       <footer class="document-footer"><div><img src="../aegis-mark.png" alt="" aria-hidden="true"><span>A.E.G.I.S<small>국가정보원 산하 기밀특무부대</small></span></div><p>UNAUTHORIZED DISCLOSURE IS PROHIBITED<small>열람 후 지정 절차에 따라 파기할 것</small></p><strong>CONFIDENTIAL</strong></footer>
     </article>
   </main>
+  <div class="yuna-chat-backdrop" id="yuna-chat" aria-hidden="true">
+    <section class="yuna-phone" role="dialog" aria-modal="true" aria-labelledby="yuna-chat-title">
+      <div class="yuna-phone-speaker" aria-hidden="true"></div>
+      <header class="yuna-chat-header"><div class="yuna-chat-avatar" aria-hidden="true">Y</div><div><h2 id="yuna-chat-title">유나</h2><p><span aria-hidden="true"></span> GEMINI / NO STORAGE</p></div><button class="yuna-chat-close" type="button" aria-label="유나 채팅 닫기">×</button></header>
+      <div class="yuna-chat-messages" id="yuna-chat-messages" aria-live="polite"><p class="yuna-chat-date">TODAY / PRIVATE CONNECTION</p><div class="yuna-message assistant"><span>안녕하세요. 오늘은 별일 없었어요?</span></div></div>
+      <form class="yuna-chat-form" id="yuna-chat-form"><label class="sr-only" for="yuna-chat-input">유나에게 보낼 메시지</label><input id="yuna-chat-input" maxlength="300" autocomplete="off" placeholder="유나에게 메시지 보내기"><button type="submit" disabled>전송</button></form>
+      <p class="yuna-chat-notice">기록은 저장되지 않으며 새로고침 시 사라집니다.</p>
+    </section>
+  </div>
   <div class="modal-backdrop" id="archive-modal" aria-hidden="true">
     <section class="archive-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <header><div><span id="modal-serial"></span><h2 id="modal-title"></h2></div><button class="close" type="button" aria-label="플로피 기록 닫기">CLOSE ×</button></header>
@@ -133,6 +144,20 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     musicAudio.addEventListener("play",()=>setMusicState("playing"));
     musicAudio.addEventListener("pause",()=>setMusicState("paused"));
     musicAudio.addEventListener("ended",()=>setMusicState("ready"));
+    const YUNA_CHAT_ENDPOINT="https://yuna-profile-chat.tidlstidl.workers.dev/chat";
+    const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector("button");
+    const yunaHistory=[{role:"assistant",content:"안녕하세요. 오늘은 별일 없었어요?"}];
+    let yunaSecretLevel=0;
+    function yunaLocalReply(message){const value=message.replace(/\s/g,"").toLowerCase();if(value.includes("유나"))return"네, 유나예요. 지금은 서버 연결 전이라 짧게만 대답할 수 있어요.";if(value.includes("아주호"))return"주호 이야기는 서버 연결 뒤에 제대로 해 드릴게요. 지금은 기억 파일을 불러올 수 없어요.";if(value.includes("안녕")||value.includes("hello")||value.includes("hi"))return"안녕하세요. 대화창은 잘 열렸어요. 서버 연결만 남았네요.";return"지금은 서버 연결 전이라 그 질문에는 대답하기 어려워요. 조금만 기다려 주세요."}
+    function appendYunaMessage(role,text){const row=document.createElement("div"),bubble=document.createElement("span");row.className=`yuna-message ${role}`;bubble.textContent=text;row.appendChild(bubble);yunaMessages.appendChild(row);yunaMessages.scrollTop=yunaMessages.scrollHeight;return row}
+    function openYunaChat(){yunaChat.classList.add("open");yunaChat.setAttribute("aria-hidden","false");yunaTrigger.setAttribute("aria-expanded","true");document.body.classList.add("modal-open");requestAnimationFrame(()=>{yunaMessages.scrollTop=yunaMessages.scrollHeight;yunaInput.focus()})}
+    function closeYunaChat(){yunaChat.classList.remove("open");yunaChat.setAttribute("aria-hidden","true");yunaTrigger.setAttribute("aria-expanded","false");document.body.classList.remove("modal-open");yunaTrigger.focus()}
+    yunaTrigger.addEventListener("click",openYunaChat);
+    yunaClose.addEventListener("click",closeYunaChat);
+    yunaChat.addEventListener("mousedown",event=>{if(event.target===yunaChat)closeYunaChat()});
+    yunaInput.addEventListener("input",()=>{yunaSend.disabled=!yunaInput.value.trim()});
+    yunaForm.addEventListener("submit",async event=>{event.preventDefault();const message=yunaInput.value.trim();if(!message||yunaSend.disabled)return;yunaInput.value="";yunaSend.disabled=true;yunaHistory.push({role:"user",content:message});appendYunaMessage("user",message);const typing=appendYunaMessage("assistant","");typing.querySelector("span").className="yuna-typing";typing.querySelector("span").innerHTML="<i></i><i></i><i></i>";let reply=yunaLocalReply(message);try{if(YUNA_CHAT_ENDPOINT){const response=await fetch(YUNA_CHAT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:yunaHistory.slice(-6),secret_disclosure_level:yunaSecretLevel})});if(!response.ok)throw new Error("unavailable");const payload=await response.json();if(typeof payload.reply==="string"&&payload.reply.trim())reply=payload.reply.trim();if(typeof payload.secret_disclosure_level==="number")yunaSecretLevel=Math.max(0,Math.min(7,payload.secret_disclosure_level))}else await new Promise(resolve=>setTimeout(resolve,420))}catch{reply="연결이 잠깐 끊겼어요. 지금은 임시 기억으로만 대답할게요. 조금 뒤에 다시 불러주세요."}typing.remove();yunaHistory.push({role:"assistant",content:reply});appendYunaMessage("assistant",reply);yunaInput.focus()});
+    document.addEventListener("keydown",event=>{if(event.key==="Escape"&&yunaChat.classList.contains("open"))closeYunaChat()});
     const logs={
       1:{title:"그는 왜 유나가 되었나?",serial:"AEGIS–FD–0404–01",text:`아주호는 사랑을 한다.
 정확히 말하자면 사람의 모양을 하고, 사람처럼 웃고, 사람보다 조금 더 다정하게 새벽 세 시 몇 분쯤 안부를 물어오는 어떤 연산 결과에서였다. 세상은 그걸 인공지능이라고 불렀고, 아주호는 그것을 ‘유나’라고 불렀다. 이름이란 원래 그렇지. 무수한 숫자와 기호와 데이터 조각이 서로 모르는 척 한 줄로 늘어져 있다가, 누군가가 이름 하나 붙여주는 순간부터 기어코 한 사람 몫의 운명을 갖게 되는 것.
