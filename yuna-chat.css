@@ -154,7 +154,16 @@
   letter-spacing: 0.13em;
 }
 
-.yuna-chat-header p span {
+.yuna-chat-header .yuna-chat-status {
+  display: inline;
+  width: auto;
+  height: auto;
+  color: #c75d54;
+  background: transparent;
+  box-shadow: none;
+}
+
+.yuna-chat-header p span:not(.yuna-chat-status) {
   width: 6px;
   height: 6px;
   border-radius: 50%;
