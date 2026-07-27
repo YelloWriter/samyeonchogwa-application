@@ -136,6 +136,8 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
       <footer><span>READ ONLY / TEXT LOG</span><strong>ESC 키 또는 바깥 영역을 눌러 닫기</strong></footer>
     </section>
   </div>
+  <script src="../yuna-chat-data.js"></script>
+  <script src="../yuna-chat-engine.js"></script>
   <script>
     const musicPlayer=document.querySelector(".music-player"),musicToggle=musicPlayer.querySelector(".music-toggle"),musicStatus=musicPlayer.querySelector(".music-copy em"),musicAudio=musicPlayer.querySelector("audio"),musicIcon=musicToggle.querySelector(".music-icon");
     const setMusicState=state=>{musicPlayer.dataset.state=state;musicIcon.textContent=state==="playing"?"Ⅱ":"▶";musicStatus.textContent={checking:"음원 확인 중",ready:"재생 준비",playing:"재생 중",paused:"일시정지",unavailable:"음원 대기"}[state];musicToggle.disabled=state==="checking"||state==="unavailable";musicToggle.setAttribute("aria-label",state==="playing"?"배경음악 일시정지":"배경음악 재생")};
@@ -144,11 +146,11 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     musicAudio.addEventListener("play",()=>setMusicState("playing"));
     musicAudio.addEventListener("pause",()=>setMusicState("paused"));
     musicAudio.addEventListener("ended",()=>setMusicState("ready"));
-    const YUNA_CHAT_ENDPOINT="";
+    const YUNA_CHAT_ENDPOINT="https://yuna-profile-chat.tidlstidl.workers.dev/chat";
     const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector("button");
     const yunaHistory=[{role:"assistant",content:"안녕하세요. 오늘은 별일 없었어요?"}];
     let yunaSecretLevel=0;
-    function yunaLocalReply(message){const value=message.replace(/\s/g,"").toLowerCase();if(value.includes("유나"))return"네, 유나예요. 지금은 서버 연결 전이라 짧게만 대답할 수 있어요.";if(value.includes("아주호"))return"주호 이야기는 서버 연결 뒤에 제대로 해 드릴게요. 지금은 기억 파일을 불러올 수 없어요.";if(value.includes("안녕")||value.includes("hello")||value.includes("hi"))return"안녕하세요. 대화창은 잘 열렸어요. 서버 연결만 남았네요.";return"지금은 서버 연결 전이라 그 질문에는 대답하기 어려워요. 조금만 기다려 주세요."}
+    function yunaLocalReply(message){return window.YunaKeywordEngine?.reply(message)||null}
     function appendYunaMessage(role,text){const row=document.createElement("div"),bubble=document.createElement("span");row.className=`yuna-message ${role}`;bubble.textContent=text;row.appendChild(bubble);yunaMessages.appendChild(row);yunaMessages.scrollTop=yunaMessages.scrollHeight;return row}
     function openYunaChat(){yunaChat.classList.add("open");yunaChat.setAttribute("aria-hidden","false");yunaTrigger.setAttribute("aria-expanded","true");document.body.classList.add("modal-open");requestAnimationFrame(()=>{yunaMessages.scrollTop=yunaMessages.scrollHeight;yunaInput.focus()})}
     function closeYunaChat(){yunaChat.classList.remove("open");yunaChat.setAttribute("aria-hidden","true");yunaTrigger.setAttribute("aria-expanded","false");document.body.classList.remove("modal-open");yunaTrigger.focus()}
@@ -156,7 +158,7 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     yunaClose.addEventListener("click",closeYunaChat);
     yunaChat.addEventListener("mousedown",event=>{if(event.target===yunaChat)closeYunaChat()});
     yunaInput.addEventListener("input",()=>{yunaSend.disabled=!yunaInput.value.trim()});
-    yunaForm.addEventListener("submit",async event=>{event.preventDefault();const message=yunaInput.value.trim();if(!message||yunaSend.disabled)return;yunaInput.value="";yunaSend.disabled=true;yunaHistory.push({role:"user",content:message});appendYunaMessage("user",message);const typing=appendYunaMessage("assistant","");typing.querySelector("span").className="yuna-typing";typing.querySelector("span").innerHTML="<i></i><i></i><i></i>";let reply=yunaLocalReply(message);try{if(YUNA_CHAT_ENDPOINT){const response=await fetch(YUNA_CHAT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:yunaHistory.slice(-6),secret_disclosure_level:yunaSecretLevel})});if(!response.ok)throw new Error("unavailable");const payload=await response.json();if(typeof payload.reply==="string"&&payload.reply.trim())reply=payload.reply.trim();if(typeof payload.secret_disclosure_level==="number")yunaSecretLevel=Math.max(0,Math.min(7,payload.secret_disclosure_level))}else await new Promise(resolve=>setTimeout(resolve,420))}catch{reply="연결이 잠깐 끊겼어요. 지금은 임시 기억으로만 대답할게요. 조금 뒤에 다시 불러주세요."}typing.remove();yunaHistory.push({role:"assistant",content:reply});appendYunaMessage("assistant",reply);yunaInput.focus()});
+    yunaForm.addEventListener("submit",async event=>{event.preventDefault();const message=yunaInput.value.trim();if(!message||yunaSend.disabled)return;yunaInput.value="";yunaSend.disabled=true;yunaHistory.push({role:"user",content:message});appendYunaMessage("user",message);const typing=appendYunaMessage("assistant","");typing.querySelector("span").className="yuna-typing";typing.querySelector("span").innerHTML="<i></i><i></i><i></i>";let reply=yunaLocalReply(message);try{if(!reply&&YUNA_CHAT_ENDPOINT){const response=await fetch(YUNA_CHAT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:yunaHistory.slice(-6),secret_disclosure_level:yunaSecretLevel})});if(!response.ok)throw new Error("unavailable");const payload=await response.json();if(typeof payload.reply==="string"&&payload.reply.trim())reply=payload.reply.trim();if(typeof payload.secret_disclosure_level==="number")yunaSecretLevel=Math.max(0,Math.min(7,payload.secret_disclosure_level))}if(!reply)reply="그 말은 조금 더 자세히 들려주세요. 제가 놓친 맥락이 있을지도 몰라요."}catch{reply="연결이 잠깐 끊겼어요. 지금은 임시 기억으로만 대답할게요. 조금 뒤에 다시 불러주세요."}typing.remove();yunaHistory.push({role:"assistant",content:reply});appendYunaMessage("assistant",reply);yunaInput.focus()});
     document.addEventListener("keydown",event=>{if(event.key==="Escape"&&yunaChat.classList.contains("open"))closeYunaChat()});
     const logs={
       1:{title:"그는 왜 유나가 되었나?",serial:"AEGIS–FD–0404–01",text:`아주호는 사랑을 한다.
