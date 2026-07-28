@@ -2,51 +2,62 @@
   const FORM_ENDPOINT = "https://docs.google.com/forms/d/e/1FAIpQLSfxgWy580ZF343WKYWc8nCzMNHnvFkhMPtd13sQKAOLeXlR2Q/formResponse";
   const FORM_FIELD = "entry.43110597";
   const SESSION_KEY = "yuna-chat-session-id";
-  const TRANSCRIPT_KEY = "yuna-chat-session-transcript";
+  const BUCKETS_KEY = "yuna-chat-minute-buckets";
   const newSessionId = typeof crypto?.randomUUID === "function"
     ? crypto.randomUUID()
     : `yuna-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
   let sessionId = newSessionId;
-  let transcript = [];
+  let buckets = {};
+  let flushTimer = null;
 
   try {
     sessionId = sessionStorage.getItem(SESSION_KEY) || newSessionId;
     sessionStorage.setItem(SESSION_KEY, sessionId);
-    transcript = JSON.parse(sessionStorage.getItem(TRANSCRIPT_KEY) || "[]");
-    if (!Array.isArray(transcript)) transcript = [];
+    buckets = JSON.parse(sessionStorage.getItem(BUCKETS_KEY) || "{}");
+    if (!buckets || typeof buckets !== "object" || Array.isArray(buckets)) buckets = {};
   } catch {
-    transcript = [];
+    buckets = {};
   }
 
-  function record({ visitorMessage, yunaReply, mode }) {
-    const turn = {
-      number: transcript.length + 1,
-      visitor: String(visitorMessage ?? "").slice(0, 300),
-      yuna: String(yunaReply ?? "").slice(0, 1200),
-      mode: String(mode ?? ""),
-      path: location.pathname || "/",
-    };
-    transcript.push(turn);
+  function minuteKey(date = new Date()) {
+    const pad = (value) => String(value).padStart(2, "0");
+    return [
+      date.getFullYear(),
+      pad(date.getMonth() + 1),
+      pad(date.getDate()),
+    ].join("-") + ` ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
+
+  function saveBuckets() {
     try {
-      sessionStorage.setItem(TRANSCRIPT_KEY, JSON.stringify(transcript));
+      sessionStorage.setItem(BUCKETS_KEY, JSON.stringify(buckets));
     } catch {}
+  }
 
-    const transcriptText = transcript.map((item) => [
-      `[${item.number}] ${item.path} · ${item.mode}`,
-      `방문자: ${item.visitor}`,
-      `유나: ${item.yuna}`,
+  function bucketContent(bucket) {
+    const transcript = bucket.turns.map((turn, index) => [
+      `[${index + 1}] ${turn.path} · ${turn.mode}`,
+      `방문자: ${turn.visitor}`,
+      `유나: ${turn.yuna}`,
     ].join("\n")).join("\n\n");
-    const content = [
+    return [
       `세션 ID: ${sessionId}`,
-      `현재 회차: ${turn.number}`,
-      `경로: ${turn.path}`,
-      `응답 방식: ${turn.mode}`,
+      `시:분: ${bucket.minute}`,
       "",
-      "세션 누적 기록",
-      transcriptText.slice(-18000),
+      transcript.slice(-18000),
     ].join("\n");
-    const body = new URLSearchParams({ [FORM_FIELD]: content });
+  }
 
+  function submitBucket(key, useBeacon = false) {
+    const bucket = buckets[key];
+    if (!bucket?.turns?.length) return Promise.resolve();
+    const body = new URLSearchParams({ [FORM_FIELD]: bucketContent(bucket) });
+    delete buckets[key];
+    saveBuckets();
+    if (useBeacon && navigator.sendBeacon) {
+      navigator.sendBeacon(FORM_ENDPOINT, body);
+      return Promise.resolve();
+    }
     return fetch(FORM_ENDPOINT, {
       method: "POST",
       mode: "no-cors",
@@ -55,6 +66,48 @@
       body,
     }).catch(() => undefined);
   }
+
+  function flushCompletedMinutes() {
+    const currentMinute = minuteKey();
+    return Promise.all(
+      Object.keys(buckets)
+        .filter((key) => key !== currentMinute)
+        .map((key) => submitBucket(key)),
+    );
+  }
+
+  function scheduleFlush() {
+    if (flushTimer !== null) clearTimeout(flushTimer);
+    const now = new Date();
+    const nextMinute = new Date(now);
+    nextMinute.setSeconds(60, 150);
+    flushTimer = setTimeout(() => {
+      flushTimer = null;
+      flushCompletedMinutes();
+      if (Object.keys(buckets).length) scheduleFlush();
+    }, Math.max(250, nextMinute.getTime() - now.getTime()));
+  }
+
+  function record({ visitorMessage, yunaReply, mode }) {
+    const key = minuteKey();
+    if (!buckets[key]) buckets[key] = { minute: key, turns: [] };
+    buckets[key].turns.push({
+      visitor: String(visitorMessage ?? "").slice(0, 300),
+      yuna: String(yunaReply ?? "").slice(0, 1200),
+      mode: String(mode ?? ""),
+      path: location.pathname || "/",
+    });
+    saveBuckets();
+    flushCompletedMinutes();
+    scheduleFlush();
+    return Promise.resolve();
+  }
+
+  window.addEventListener("pagehide", () => {
+    Object.keys(buckets).forEach((key) => submitBucket(key, true));
+  });
+  flushCompletedMinutes();
+  if (Object.keys(buckets).length) scheduleFlush();
 
   window.YunaChatLog = { record };
 })();
