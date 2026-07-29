@@ -50,21 +50,21 @@
   </style>
   <style>
     .hero-controls{position:relative;display:flex;flex-wrap:nowrap;gap:0;align-items:stretch;width:min(100%,570px);margin:clamp(42px,5vw,66px) auto 24px;padding:10px 0;border-top:1px solid rgba(25,25,23,.72);border-bottom:1px solid rgba(25,25,23,.72);background:linear-gradient(90deg,rgba(185,79,67,.045),transparent 28%,transparent 72%,rgba(185,79,67,.045))}
-    .hero-controls:before{position:absolute;top:-17px;left:0;content:"PERSONAL ARCHIVE · AUDIO / MEMORY";color:var(--red);font:900 7px/1 Arial,sans-serif;letter-spacing:.16em}
-    .hero-controls:after{position:absolute;right:0;bottom:-16px;content:"A–0404 · ACCESS";color:rgba(25,25,23,.48);font:800 6px/1 Arial,sans-serif;letter-spacing:.15em}
+    .hero-controls:before{position:absolute;top:-18px;left:0;content:"PERSONAL ARCHIVE · AUDIO / MEMORY";color:var(--red);font:900 8px/1 Arial,sans-serif;letter-spacing:.16em}
+    .hero-controls:after{position:absolute;right:0;bottom:-17px;content:"A–0404 · ACCESS";color:rgba(25,25,23,.48);font:800 7px/1 Arial,sans-serif;letter-spacing:.15em}
     .hero-controls .music-player,.hero-controls .yuna-disk-trigger{flex:1 1 50%;width:auto;min-width:0;min-height:78px;margin:0;padding:8px 20px;color:var(--ink);border:0;background:transparent;box-shadow:none}
     .hero-controls .music-player{gap:15px;border-right:1px solid rgba(25,25,23,.28)}
     .hero-controls .yuna-disk-trigger{gap:15px;align-self:stretch;justify-content:flex-start;transition:background .18s ease,color .18s ease}
     .hero-controls .yuna-disk-trigger:hover,.hero-controls .yuna-disk-trigger:focus-visible{color:var(--ink);border:0;background:rgba(185,79,67,.09);outline:1px solid rgba(185,79,67,.42);outline-offset:-4px;transform:none}
     .hero-controls .music-toggle{flex:0 0 50px;width:50px;height:50px}
     .hero-controls .music-icon{width:25px;height:25px;border-color:rgba(25,25,23,.72);font-size:8px}
-    .hero-controls .yuna-disk-icon{display:grid;flex:0 0 50px;width:50px;height:50px;place-items:center;border:0;background:transparent;font-size:30px;filter:grayscale(1) contrast(1.35)}
+    .hero-controls .yuna-disk-icon{display:grid;flex:0 0 50px;width:50px;height:50px;place-items:center;color:var(--red);border:1px solid rgba(185,79,67,.62);border-radius:50%;background:rgba(185,79,67,.06);font:900 26px/1 Arial,sans-serif;filter:none}
     .hero-controls .music-copy,.hero-controls .yuna-disk-copy{display:grid;gap:5px;min-width:0;align-content:center}
-    .hero-controls .music-copy:before{content:"TRACK 01";color:var(--red);font:900 7px/1 Arial,sans-serif;letter-spacing:.16em}
-    .hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font:900 12px/1 Pretendard,sans-serif;letter-spacing:.045em}
-    .hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{color:var(--red);font:750 8px/1.45 Pretendard,sans-serif;letter-spacing:.025em;word-break:keep-all}
+    .hero-controls .music-copy:before{content:"TRACK 01";color:var(--red);font:900 8px/1 Arial,sans-serif;letter-spacing:.16em}
+    .hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font:900 14px/1 Pretendard,sans-serif;letter-spacing:.045em}
+    .hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{color:var(--red);font:750 10px/1.45 Pretendard,sans-serif;letter-spacing:.025em;word-break:keep-all}
     .hero-controls .yuna-disk-trigger:hover small,.hero-controls .yuna-disk-trigger:focus-visible small{color:var(--red)}
-    @media(max-width:760px){.hero-controls{width:100%;margin-top:38px;padding:7px 0}.hero-controls:before{top:-14px;font-size:5px}.hero-controls:after{bottom:-13px;font-size:5px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{min-height:66px;padding:6px 9px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{gap:8px}.hero-controls .music-toggle,.hero-controls .yuna-disk-icon{flex-basis:38px;width:38px;height:38px}.hero-controls .yuna-disk-icon{font-size:23px}.hero-controls .music-icon{width:20px;height:20px;font-size:6px}.hero-controls .music-copy,.hero-controls .yuna-disk-copy{gap:3px}.hero-controls .music-copy:before{font-size:5px}.hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font-size:9px}.hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{font-size:6px;line-height:1.35}}
+    @media(max-width:760px){.hero-controls{width:100%;margin-top:38px;padding:7px 0}.hero-controls:before{top:-15px;font-size:6px}.hero-controls:after{bottom:-14px;font-size:6px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{min-height:72px;padding:6px 9px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{gap:8px}.hero-controls .music-toggle,.hero-controls .yuna-disk-icon{flex-basis:38px;width:38px;height:38px}.hero-controls .yuna-disk-icon{font-size:20px}.hero-controls .music-icon{width:20px;height:20px;font-size:6px}.hero-controls .music-copy,.hero-controls .yuna-disk-copy{gap:3px}.hero-controls .music-copy:before{font-size:6px}.hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font-size:11px}.hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{font-size:8px;line-height:1.35}}
   </style>
 </head>
 <body>
@@ -80,7 +80,7 @@
           <div class="kicker"><span>SPECIAL PARDON CANDIDATE</span><span class="chip">PROFILE / 0404</span></div>
           <p class="document-label">특수 사면 대상자 지원 문서</p>
           <img class="hero-title-image" src="./title-samyeonchogwa.png" alt="사면초과">
-          <div class="hero-controls"><div class="music-player" data-state="checking"><button class="music-toggle" type="button" aria-label="배경음악 재생" disabled><span class="vinyl-disc" aria-hidden="true"></span><span class="music-icon" aria-hidden="true">▶</span></button><span class="music-copy" aria-live="polite"><b>DISCO</b><em>음원 확인 중</em></span><audio loop preload="metadata" src="./bgm.mp3"></audio></div><button class="yuna-disk-trigger" id="yuna-chat-trigger" type="button" aria-haspopup="dialog" aria-expanded="false"><span class="yuna-disk-icon" aria-hidden="true">💾</span><span class="yuna-disk-copy"><strong>수상한 디스크</strong><small>유나 잠시 아팠다가 나았다...</small></span></button></div>
+          <div class="hero-controls"><div class="music-player" data-state="checking"><button class="music-toggle" type="button" aria-label="배경음악 재생" disabled><span class="vinyl-disc" aria-hidden="true"></span><span class="music-icon" aria-hidden="true">▶</span></button><span class="music-copy" aria-live="polite"><b>DISCO</b><em>음원 확인 중</em></span><audio loop preload="metadata" src="./bgm.mp3"></audio></div><button class="yuna-disk-trigger" id="yuna-chat-trigger" type="button" aria-haspopup="dialog" aria-expanded="false"><span class="yuna-disk-icon" aria-hidden="true">✚</span><span class="yuna-disk-copy"><strong>아픈 디스크</strong><small>유나가 제정신이 아니네<br>자기야 내가 해결해줄게.</small></span></button></div>
           <p class="hero-lead">“낭떠러지라니 표현이 너무 비관적이네.<br>전망 좋은 분기점이라고 합시다.”</p>
           <p class="hero-tags">일기일회 시절인연 무한회귀<br>재정의 분기점 다시 시작</p>
         </div>
