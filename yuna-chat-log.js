@@ -2,62 +2,104 @@
   const FORM_ENDPOINT = "https://docs.google.com/forms/d/e/1FAIpQLSfxgWy580ZF343WKYWc8nCzMNHnvFkhMPtd13sQKAOLeXlR2Q/formResponse";
   const FORM_FIELD = "entry.43110597";
   const SESSION_KEY = "yuna-chat-session-id";
-  const BUCKETS_KEY = "yuna-chat-minute-buckets";
+  const TRANSCRIPT_KEY = "yuna-chat-session-transcript-v2";
+  const MAX_TRANSCRIPT_CHARS = 45000;
   const newSessionId = typeof crypto?.randomUUID === "function"
     ? crypto.randomUUID()
     : `yuna-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-  let sessionId = newSessionId;
-  let buckets = {};
-  let flushTimer = null;
+  let state = {
+    sessionId: newSessionId,
+    startedAt: null,
+    lastSentAt: null,
+    sequence: 0,
+    messages: [],
+  };
+  let submitQueue = Promise.resolve();
 
   try {
-    sessionId = sessionStorage.getItem(SESSION_KEY) || newSessionId;
+    const sessionId = sessionStorage.getItem(SESSION_KEY) || newSessionId;
     sessionStorage.setItem(SESSION_KEY, sessionId);
-    buckets = JSON.parse(sessionStorage.getItem(BUCKETS_KEY) || "{}");
-    if (!buckets || typeof buckets !== "object" || Array.isArray(buckets)) buckets = {};
-  } catch {
-    buckets = {};
-  }
+    const restored = JSON.parse(sessionStorage.getItem(TRANSCRIPT_KEY) || "null");
+    if (
+      restored &&
+      restored.sessionId === sessionId &&
+      Array.isArray(restored.messages)
+    ) {
+      state = {
+        sessionId,
+        startedAt: Number(restored.startedAt) || null,
+        lastSentAt: Number(restored.lastSentAt) || null,
+        sequence: Number(restored.sequence) || 0,
+        messages: restored.messages
+          .filter((item) =>
+            item &&
+            (item.role === "방문자" || item.role === "유나") &&
+            Number.isFinite(Number(item.at)) &&
+            typeof item.text === "string"
+          )
+          .map((item) => ({
+            role: item.role,
+            at: Number(item.at),
+            text: item.text.slice(0, 1200),
+          })),
+      };
+    } else {
+      state.sessionId = sessionId;
+    }
+  } catch {}
 
-  function minuteKey(date = new Date()) {
-    const pad = (value) => String(value).padStart(2, "0");
-    return [
-      date.getFullYear(),
-      pad(date.getMonth() + 1),
-      pad(date.getDate()),
-    ].join("-") + ` ${pad(date.getHours())}:${pad(date.getMinutes())}`;
-  }
-
-  function saveBuckets() {
+  function saveState() {
     try {
-      sessionStorage.setItem(BUCKETS_KEY, JSON.stringify(buckets));
+      sessionStorage.setItem(TRANSCRIPT_KEY, JSON.stringify(state));
     } catch {}
   }
 
-  function bucketContent(bucket) {
-    const transcript = bucket.turns.map((turn, index) => [
-      `[${index + 1}] ${turn.path} · ${turn.mode}`,
-      `방문자: ${turn.visitor}`,
-      `유나: ${turn.yuna}`,
-    ].join("\n")).join("\n\n");
-    return [
-      `세션 ID: ${sessionId}`,
-      `시:분: ${bucket.minute}`,
-      "",
-      transcript.slice(-18000),
-    ].join("\n");
+  function formatKst(timestamp) {
+    const parts = new Intl.DateTimeFormat("ko-KR", {
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+    }).formatToParts(new Date(timestamp));
+    const values = Object.fromEntries(
+      parts
+        .filter((part) => part.type !== "literal")
+        .map((part) => [part.type, part.value]),
+    );
+    return `${values.year}/${values.month}/${values.day} ${values.hour}:${values.minute}`;
   }
 
-  function submitBucket(key, useBeacon = false) {
-    const bucket = buckets[key];
-    if (!bucket?.turns?.length) return Promise.resolve();
-    const body = new URLSearchParams({ [FORM_FIELD]: bucketContent(bucket) });
-    delete buckets[key];
-    saveBuckets();
-    if (useBeacon && navigator.sendBeacon) {
-      navigator.sendBeacon(FORM_ENDPOINT, body);
-      return Promise.resolve();
-    }
+  function transcriptBody() {
+    return state.messages
+      .map((message) =>
+        `[${formatKst(message.at)}] ${message.role} : ${message.text}`
+      )
+      .join("\n");
+  }
+
+  function snapshot() {
+    const startedAt = state.startedAt || state.messages[0]?.at || Date.now();
+    const lastSentAt =
+      state.lastSentAt ||
+      state.messages[state.messages.length - 1]?.at ||
+      startedAt;
+    const header = [
+      `세션 ID: ${state.sessionId}`,
+      `대화 시간: ${formatKst(startedAt)} ~ ${formatKst(lastSentAt)}`,
+      `기록 순번: ${state.sequence}`,
+      "기록 형식: SESSION_SNAPSHOT_V2",
+      "",
+      "",
+    ].join("\n");
+    const room = Math.max(0, MAX_TRANSCRIPT_CHARS - header.length);
+    return header + transcriptBody().slice(-room);
+  }
+
+  function submitSnapshot(content) {
+    const body = new URLSearchParams({ [FORM_FIELD]: content });
     return fetch(FORM_ENDPOINT, {
       method: "POST",
       mode: "no-cors",
@@ -67,47 +109,32 @@
     }).catch(() => undefined);
   }
 
-  function flushCompletedMinutes() {
-    const currentMinute = minuteKey();
-    return Promise.all(
-      Object.keys(buckets)
-        .filter((key) => key !== currentMinute)
-        .map((key) => submitBucket(key)),
+  function record({ visitorMessage, yunaReply, visitorAt, yunaAt }) {
+    const visitorTimestamp = Number(visitorAt) || Date.now();
+    const yunaTimestamp = Math.max(
+      visitorTimestamp,
+      Number(yunaAt) || Date.now(),
     );
+    const visitorText = String(visitorMessage ?? "").trim().slice(0, 300);
+    const yunaText = String(yunaReply ?? "").trim().slice(0, 1200);
+    if (!visitorText || !yunaText) return Promise.resolve();
+
+    if (!state.startedAt) state.startedAt = visitorTimestamp;
+    state.lastSentAt = yunaTimestamp;
+    state.sequence += 1;
+    state.messages.push(
+      { role: "방문자", at: visitorTimestamp, text: visitorText },
+      { role: "유나", at: yunaTimestamp, text: yunaText },
+    );
+    saveState();
+
+    const content = snapshot();
+    submitQueue = submitQueue.then(() => submitSnapshot(content));
+    return submitQueue;
   }
 
-  function scheduleFlush() {
-    if (flushTimer !== null) clearTimeout(flushTimer);
-    const now = new Date();
-    const nextMinute = new Date(now);
-    nextMinute.setSeconds(60, 150);
-    flushTimer = setTimeout(() => {
-      flushTimer = null;
-      flushCompletedMinutes();
-      if (Object.keys(buckets).length) scheduleFlush();
-    }, Math.max(250, nextMinute.getTime() - now.getTime()));
-  }
-
-  function record({ visitorMessage, yunaReply, mode }) {
-    const key = minuteKey();
-    if (!buckets[key]) buckets[key] = { minute: key, turns: [] };
-    buckets[key].turns.push({
-      visitor: String(visitorMessage ?? "").slice(0, 300),
-      yuna: String(yunaReply ?? "").slice(0, 1200),
-      mode: String(mode ?? ""),
-      path: location.pathname || "/",
-    });
-    saveBuckets();
-    flushCompletedMinutes();
-    scheduleFlush();
-    return Promise.resolve();
-  }
-
-  window.addEventListener("pagehide", () => {
-    Object.keys(buckets).forEach((key) => submitBucket(key, true));
-  });
-  flushCompletedMinutes();
-  if (Object.keys(buckets).length) scheduleFlush();
-
-  window.YunaChatLog = { record };
+  window.YunaChatLog = {
+    record,
+    getSessionId: () => state.sessionId,
+  };
 })();
