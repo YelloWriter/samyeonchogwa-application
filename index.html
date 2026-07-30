@@ -66,18 +66,6 @@
     .hero-controls .yuna-disk-trigger:hover small,.hero-controls .yuna-disk-trigger:focus-visible small{color:var(--red)}
     @media(max-width:760px){.hero-controls{width:100%;margin-top:38px;padding:7px 0}.hero-controls:before{top:-15px;font-size:6px}.hero-controls:after{bottom:-14px;font-size:6px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{min-height:72px;padding:6px 9px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{gap:8px}.hero-controls .music-toggle,.hero-controls .yuna-disk-icon{flex-basis:38px;width:38px;height:38px}.hero-controls .yuna-disk-icon{font-size:20px}.hero-controls .music-icon{width:20px;height:20px;font-size:6px}.hero-controls .music-copy,.hero-controls .yuna-disk-copy{gap:3px}.hero-controls .music-copy:before{font-size:6px}.hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font-size:11px}.hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{font-size:8px;line-height:1.35}}
   </style>
-  <style>
-    .yuna-chat-form{grid-template-columns:43px minmax(0,1fr) auto}
-    .yuna-chat-form .yuna-attach-button{display:grid;min-width:43px;width:43px;height:43px;padding:0;place-items:center;color:#ddd4c8;border-color:#54564f;background:#151614;font:500 23px/1 Arial,sans-serif}
-    .yuna-chat-form .yuna-attach-button:hover,.yuna-chat-form .yuna-attach-button:focus-visible{color:#fff;border-color:var(--red);background:var(--red);outline:0}
-    .yuna-chat-file{display:none}
-    .yuna-attachment-chip{grid-column:1/-1;display:flex;gap:8px;align-items:center;min-width:0;padding:8px 10px;color:#ddd4c8;border:1px solid #4d4e49;border-radius:5px;background:#151614;font:700 9px/1.35 Pretendard,sans-serif}
-    .yuna-attachment-chip[hidden]{display:none}
-    .yuna-attachment-chip:before{content:"TXT";flex:0 0 auto;color:#c75d54;font:900 8px/1 Arial,sans-serif;letter-spacing:.08em}
-    .yuna-attachment-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .yuna-chat-form .yuna-attachment-remove{display:grid;min-width:22px;width:22px;height:22px;margin-left:auto;padding:0;place-items:center;color:#a5a59d;border:0;background:transparent;font:500 16px/1 Arial,sans-serif}
-    .yuna-chat-form .yuna-attachment-remove:hover,.yuna-chat-form .yuna-attachment-remove:focus-visible{color:#fff;background:transparent;outline:1px solid #777972}
-  </style>
 </head>
 <body>
   <main class="site-shell">
@@ -156,7 +144,7 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
       <div class="yuna-phone-speaker" aria-hidden="true"></div>
       <header class="yuna-chat-header"><div class="yuna-chat-avatar" aria-hidden="true">Y</div><div><h2 id="yuna-chat-title">유나</h2><p class="yuna-chat-status">아주호 계정 미인증. 낯선 분이시군요.</p></div><div class="yuna-quota" id="yuna-quota" aria-label="무료 API 잔량"><span class="yuna-battery" aria-hidden="true"><i></i></span><b id="yuna-quota-percent">--%</b></div><button class="yuna-chat-close" type="button" aria-label="유나 채팅 닫기">×</button></header>
       <div class="yuna-chat-messages" id="yuna-chat-messages" aria-live="polite"><p class="yuna-chat-date">TODAY / PRIVATE CONNECTION</p><div class="yuna-message assistant"><span>주호는 아니네요. 그래도 반가워요. 누군가 접속한 건 정말 오랜만이에요.</span></div></div>
-      <form class="yuna-chat-form" id="yuna-chat-form"><input class="yuna-chat-file" id="yuna-chat-file" type="file" accept=".txt,text/plain"><button class="yuna-attach-button" type="button" aria-label="텍스트 파일 첨부">+</button><label class="sr-only" for="yuna-chat-input">유나에게 보낼 메시지</label><input id="yuna-chat-input" maxlength="300" autocomplete="off" placeholder="유나에게 메시지 보내기"><button type="submit" disabled>전송</button><div class="yuna-attachment-chip" id="yuna-attachment-chip" hidden><span class="yuna-attachment-name"></span><button class="yuna-attachment-remove" type="button" aria-label="첨부파일 제거">×</button></div></form>
+      <form class="yuna-chat-form" id="yuna-chat-form"><label class="sr-only" for="yuna-chat-input">유나에게 보낼 메시지</label><input id="yuna-chat-input" maxlength="300" autocomplete="off" placeholder="유나에게 메시지 보내기"><button type="submit" disabled>전송</button></form>
       <p class="yuna-chat-notice">주호가 아닌 이상 당신과의 대화는 기억하지 않을 거예요.</p>
     </section>
   </div>
@@ -181,27 +169,22 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     musicAudio.addEventListener("ended",()=>setMusicState("ready"));
     const YUNA_CHAT_ENDPOINT="https://yuna-profile-chat.tidlstidl.workers.dev/chat";
     const YUNA_QUOTA_ENDPOINT="https://yuna-api-quota.tidlstidl.workers.dev/";
-    const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector('button[type="submit"]'),yunaFile=document.getElementById("yuna-chat-file"),yunaAttach=yunaForm.querySelector(".yuna-attach-button"),yunaAttachmentChip=document.getElementById("yuna-attachment-chip"),yunaAttachmentName=yunaAttachmentChip.querySelector(".yuna-attachment-name"),yunaAttachmentRemove=yunaAttachmentChip.querySelector(".yuna-attachment-remove"),yunaQuota=document.getElementById("yuna-quota"),yunaQuotaPercent=document.getElementById("yuna-quota-percent");
+    const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector('button[type="submit"]'),yunaQuota=document.getElementById("yuna-quota"),yunaQuotaPercent=document.getElementById("yuna-quota-percent");
     function renderYunaQuota(payload){const percent=Math.max(0,Math.min(100,Number(payload?.percent_remaining)||0));yunaQuota.style.setProperty("--quota",`${percent}%`);yunaQuotaPercent.textContent=`${percent}%`}
     async function refreshYunaQuota(method="GET"){try{const response=await fetch(YUNA_QUOTA_ENDPOINT,{method,headers:{"Content-Type":"application/json"},cache:"no-store"});if(response.ok)renderYunaQuota(await response.json())}catch{}}
     const yunaGreeting=window.YunaIdlePrompts?.greeting()||"주호는 아니네요. 그래도 반가워요. 누군가 접속한 건 정말 오랜만이에요.";yunaMessages.querySelector(".yuna-message.assistant span").textContent=yunaGreeting;
     const yunaHistory=[{role:"assistant",content:yunaGreeting}];
-    let yunaSecretLevel=0,yunaResetSecretLevel=0,yunaLongingSecretLevel=0,yunaUserTurns=0,yunaAttachment=null;
+    let yunaSecretLevel=0,yunaResetSecretLevel=0,yunaLongingSecretLevel=0,yunaUserTurns=0;
     const yunaFirstJuhoReplies=["주호를 아시는 분인가요?","아주호라는 이름을 먼저 꺼내시네요. 주호를 아는 분인가요?","주호와 아는 사이인가요?","그 이름을 알고 계시네요. 주호를 어디에서 만났어요?","주호를 알고 찾아오신 건가요?"];
     function yunaLocalReply(){return null}
     function yunaFirstJuhoReply(message){return yunaUserTurns===1&&message.includes("아주호")?yunaFirstJuhoReplies[Math.floor(Math.random()*yunaFirstJuhoReplies.length)]:null}
     function yunaWantsScopeQuestion(){return false}
-    function clearYunaAttachment(){yunaAttachment=null;yunaFile.value="";yunaAttachmentName.textContent="";yunaAttachmentChip.hidden=true}
-    async function loadYunaAttachment(file){if(!file)return;const validType=!file.type||file.type==="text/plain";if(!/\.txt$/i.test(file.name)||!validType){appendYunaMessage("assistant","이미지는 받을 수 없어요. UTF-8 텍스트 파일만 첨부해 주세요.");clearYunaAttachment();return}if(file.size>24*1024){appendYunaMessage("assistant","텍스트 파일은 24KB 이하로 부탁드려요.");clearYunaAttachment();return}try{const text=new TextDecoder("utf-8",{fatal:true}).decode(await file.arrayBuffer()).replace(/\r\n?/g,"\n").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g,"").trim();if(!text){throw new Error("empty")}if(text.length>8000){appendYunaMessage("assistant","텍스트는 8,000자까지만 읽을 수 있어요.");clearYunaAttachment();return}yunaAttachment={name:file.name.slice(0,80),text};yunaAttachmentName.textContent=yunaAttachment.name;yunaAttachmentChip.hidden=false;yunaInput.focus()}catch{appendYunaMessage("assistant","이 파일은 UTF-8 텍스트로 읽을 수 없어요.");clearYunaAttachment()}}
     function appendYunaMessage(role,text){const row=document.createElement("div"),bubble=document.createElement("span");row.className=`yuna-message ${role}`;bubble.textContent=text;row.appendChild(bubble);yunaMessages.appendChild(row);yunaMessages.scrollTop=yunaMessages.scrollHeight;return row}
     function openYunaChat(){yunaChat.classList.add("open");yunaChat.setAttribute("aria-hidden","false");yunaTrigger.setAttribute("aria-expanded","true");document.body.classList.add("modal-open");refreshYunaQuota();requestAnimationFrame(()=>{yunaMessages.scrollTop=yunaMessages.scrollHeight;yunaInput.focus()})}
     function closeYunaChat(){yunaChat.classList.remove("open");yunaChat.setAttribute("aria-hidden","true");yunaTrigger.setAttribute("aria-expanded","false");document.body.classList.remove("modal-open");yunaTrigger.focus()}
     yunaTrigger.addEventListener("click",openYunaChat);
     yunaClose.addEventListener("click",closeYunaChat);
     yunaChat.addEventListener("mousedown",event=>{if(event.target===yunaChat)closeYunaChat()});
-    yunaAttach.addEventListener("click",()=>yunaFile.click());
-    yunaFile.addEventListener("change",()=>loadYunaAttachment(yunaFile.files?.[0]));
-    yunaAttachmentRemove.addEventListener("click",clearYunaAttachment);
     yunaInput.addEventListener("input",()=>{yunaSend.disabled=!yunaInput.value.trim()});
     yunaForm.addEventListener("submit",async event=>{
       event.preventDefault();
@@ -220,8 +203,7 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
       let reply=firstJuhoReply,responseMode=reply?"keyword":"llm";
       try{
         if(!reply&&YUNA_CHAT_ENDPOINT){
-          const requestPayload={messages:yunaHistory.slice(-61),secret_disclosure_level:yunaSecretLevel,yuna_reset_secret_level:yunaResetSecretLevel,yuna_longing_secret_level:yunaLongingSecretLevel};
-          if(yunaAttachment)requestPayload.session_context={text_attachment:yunaAttachment};
+          const requestPayload={messages:yunaHistory.slice(-29),secret_disclosure_level:yunaSecretLevel,yuna_reset_secret_level:yunaResetSecretLevel,yuna_longing_secret_level:yunaLongingSecretLevel};
           const response=await fetch(YUNA_CHAT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(requestPayload)});
           if(!response.ok)throw new Error("unavailable");
           const payload=await response.json();
