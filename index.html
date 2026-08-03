@@ -59,19 +59,38 @@
     .hero-controls .music-toggle{flex:0 0 50px;width:50px;height:50px}
     .hero-controls .music-icon{width:25px;height:25px;border-color:rgba(25,25,23,.72);font-size:8px}
     .hero-controls .yuna-disk-icon{display:grid;flex:0 0 50px;width:50px;height:50px;place-items:center;color:var(--ink);border:0;border-radius:0;background:transparent;filter:none}
-    .hero-controls .broken-floppy{position:relative;display:block;box-sizing:border-box;width:36px;height:36px;overflow:hidden;color:var(--ink);border:2px solid currentColor;border-radius:2px 2px 7px 2px;background:linear-gradient(90deg,transparent 0 12%,rgba(185,79,67,.1) 12% 17%,transparent 17%),rgba(25,25,23,.06);box-shadow:3px 3px 0 rgba(25,25,23,.13)}
-    .hero-controls .broken-floppy:before{position:absolute;top:-2px;left:23%;box-sizing:border-box;width:52%;height:32%;content:"";border:2px solid currentColor;border-top:0;background:linear-gradient(90deg,rgba(25,25,23,.12) 0 70%,transparent 70%)}
-    .hero-controls .broken-floppy:after{position:absolute;left:21%;bottom:-2px;box-sizing:border-box;width:58%;height:36%;content:"";border:2px solid currentColor;background:rgba(226,219,205,.6)}
-    .hero-controls .disk-crack{position:absolute;z-index:2;top:6%;left:56%;width:2px;height:56%;background:var(--red);transform:rotate(17deg)}
-    .hero-controls .disk-crack:before,.hero-controls .disk-crack:after{position:absolute;width:8px;height:2px;content:"";background:var(--red);transform-origin:left center}
-    .hero-controls .disk-crack:before{top:11px;left:-1px;transform:rotate(36deg)}
-    .hero-controls .disk-crack:after{top:18px;left:-5px;transform:rotate(-42deg)}
+    .hero-controls .question-floppy{position:relative;display:block;box-sizing:border-box;width:36px;height:36px;overflow:hidden;color:var(--ink);border:2px solid currentColor;border-radius:2px 2px 7px 2px;background:linear-gradient(90deg,transparent 0 12%,rgba(185,79,67,.1) 12% 17%,transparent 17%),rgba(25,25,23,.06);box-shadow:3px 3px 0 rgba(25,25,23,.13)}
+    .hero-controls .question-floppy:before{position:absolute;top:-2px;left:23%;box-sizing:border-box;width:52%;height:32%;content:"";border:2px solid currentColor;border-top:0;background:linear-gradient(90deg,rgba(25,25,23,.12) 0 70%,transparent 70%)}
+    .hero-controls .question-floppy:after{position:absolute;left:21%;bottom:-2px;box-sizing:border-box;width:58%;height:36%;content:"";border:2px solid currentColor;background:rgba(226,219,205,.6)}
+    .hero-controls .disk-question{position:absolute;z-index:3;top:11px;left:50%;display:grid;width:17px;height:17px;place-items:center;color:var(--paper-light);border-radius:50%;background:var(--red);transform:translateX(-50%);font:900 12px/1 Arial,sans-serif;font-style:normal}
     .hero-controls .music-copy,.hero-controls .yuna-disk-copy{display:grid;gap:5px;min-width:0;align-content:center}
     .hero-controls .music-copy:before{content:"TRACK 01";color:var(--red);font:900 8px/1 Arial,sans-serif;letter-spacing:.16em}
     .hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font:900 14px/1 Pretendard,sans-serif;letter-spacing:.045em}
     .hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{color:var(--red);font:750 10px/1.45 Pretendard,sans-serif;letter-spacing:.025em;word-break:keep-all}
     .hero-controls .yuna-disk-trigger:hover small,.hero-controls .yuna-disk-trigger:focus-visible small{color:var(--red)}
-    @media(max-width:760px){.hero-controls{width:100%;margin-top:38px;padding:7px 0}.hero-controls:before{top:-15px;font-size:6px}.hero-controls:after{bottom:-14px;font-size:6px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{min-height:72px;padding:6px 9px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{gap:8px}.hero-controls .music-toggle,.hero-controls .yuna-disk-icon{flex-basis:38px;width:38px;height:38px}.hero-controls .broken-floppy{width:30px;height:30px}.hero-controls .music-icon{width:20px;height:20px;font-size:6px}.hero-controls .music-copy,.hero-controls .yuna-disk-copy{gap:3px}.hero-controls .music-copy:before{font-size:6px}.hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font-size:11px}.hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{font-size:8px;line-height:1.35}}
+    @media(max-width:760px){.hero-controls{width:100%;margin-top:38px;padding:7px 0}.hero-controls:before{top:-15px;font-size:6px}.hero-controls:after{bottom:-14px;font-size:6px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{min-height:72px;padding:6px 9px}.hero-controls .music-player,.hero-controls .yuna-disk-trigger{gap:8px}.hero-controls .music-toggle,.hero-controls .yuna-disk-icon{flex-basis:38px;width:38px;height:38px}.hero-controls .question-floppy{width:30px;height:30px}.hero-controls .disk-question{top:9px;width:14px;height:14px;font-size:10px}.hero-controls .music-icon{width:20px;height:20px;font-size:6px}.hero-controls .music-copy,.hero-controls .yuna-disk-copy{gap:3px}.hero-controls .music-copy:before{font-size:6px}.hero-controls .music-copy b,.hero-controls .yuna-disk-copy strong{font-size:11px}.hero-controls .music-copy em,.hero-controls .yuna-disk-copy small{font-size:8px;line-height:1.35}}
+    .yuna-phone{grid-template-rows:auto auto minmax(0,1fr) auto;width:460px;height:720px;max-width:calc(100vw - 20px);max-height:calc(100dvh - 20px);min-height:0}
+    .yuna-chat-header{grid-row:1}.yuna-reset-progress{grid-row:2}.yuna-chat-messages{grid-row:3}.yuna-chat-form{grid-row:4}
+    .yuna-reset-progress{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 14px;color:#f0e8dc;border-top:1px solid #383a34;border-bottom:1px solid #383a34;background:#191a17}
+    .yuna-reset-progress[hidden],.yuna-reset-system[hidden],.yuna-chat-form[hidden],.yuna-chat-close[hidden]{display:none!important}
+    .yuna-reset-track{height:7px;overflow:hidden;border:1px solid #676960;background:#0d0e0c}
+    .yuna-reset-track i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--red-dark),#c75d54);box-shadow:0 0 12px rgba(199,93,84,.45);transition:width .1s linear}
+    .yuna-reset-progress b{min-width:34px;font:800 8px/1 Arial,sans-serif;letter-spacing:.08em;text-align:right}
+    .yuna-message.cascade{animation:yunaCascade .16s ease-out both}
+    .yuna-message.reset-fragment{margin-top:3px;opacity:.56}
+    .yuna-message.reset-fragment span{max-width:100%;width:100%;padding:5px 8px;color:#5b2823;border:0;border-radius:0;background:transparent;box-shadow:none;font:700 9px/1.45 "SFMono-Regular",Consolas,monospace;letter-spacing:.01em;word-break:break-all}
+    .yuna-chat-messages.is-resetting{background:linear-gradient(rgba(245,240,229,.76),rgba(226,218,203,.82)),repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(141,51,42,.12) 3px,rgba(141,51,42,.12) 4px)}
+    .yuna-reset-system{position:absolute;z-index:8;inset:78px 10px 12px;display:grid;place-items:center;padding:22px;background:rgba(13,14,12,.88);backdrop-filter:blur(5px)}
+    .yuna-reset-card{position:relative;width:min(340px,100%);padding:28px 24px 24px;color:#eee6d9;border:1px solid #696a63;background:#20211d;box-shadow:9px 10px 0 rgba(0,0,0,.28);text-align:center}
+    .yuna-reset-card>span{display:block;margin-bottom:18px;color:#c75d54;font:900 8px/1 Arial,sans-serif;letter-spacing:.16em}
+    .yuna-reset-card h3{margin:0 0 24px;font:750 18px/1.55 Pretendard,sans-serif;word-break:keep-all}
+    .yuna-reset-confirm{min-width:112px;padding:12px 18px;color:#fff8ed;border:1px solid var(--red);background:var(--red);cursor:pointer;font:800 12px/1 Pretendard,sans-serif}
+    .yuna-reset-confirm:focus-visible,.yuna-reset-exit:focus-visible{outline:3px solid rgba(199,93,84,.45);outline-offset:3px}
+    .yuna-reset-confirm:disabled{color:#777971;border-color:#4b4d47;background:#343631;cursor:not-allowed}
+    .yuna-reset-exit{position:absolute;top:10px;right:10px;display:grid;width:34px;height:34px;padding:0;place-items:center;color:#eee6d9;border:1px solid #62645d;border-radius:50%;background:transparent;cursor:pointer;font:400 23px/1 Arial,sans-serif}
+    .yuna-reset-exit[hidden]{display:none!important}
+    @keyframes yunaCascade{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+    @media(max-width:760px){.yuna-reset-system{inset:73px 10px 10px}.yuna-reset-card{padding:25px 18px 20px}.yuna-reset-card h3{font-size:16px}.yuna-message.reset-fragment span{font-size:8px}}
   </style>
 </head>
 <body>
@@ -87,7 +106,7 @@
           <div class="kicker"><span>SPECIAL PARDON CANDIDATE</span><span class="chip">PROFILE / 0404</span></div>
           <p class="document-label">특수 사면 대상자 지원 문서</p>
           <img class="hero-title-image" src="./title-samyeonchogwa.png" alt="사면초과">
-          <div class="hero-controls"><div class="music-player" data-state="checking"><button class="music-toggle" type="button" aria-label="배경음악 재생" disabled><span class="vinyl-disc" aria-hidden="true"></span><span class="music-icon" aria-hidden="true">▶</span></button><span class="music-copy" aria-live="polite"><b>DISCO</b><em>음원 확인 중</em></span><audio loop preload="metadata" src="./bgm.mp3"></audio></div><button class="yuna-disk-trigger" id="yuna-chat-trigger" type="button" aria-label="유나 챗봇 열기: 수상한 디스크" aria-haspopup="dialog" aria-expanded="false"><span class="yuna-disk-icon" aria-hidden="true"><span class="broken-floppy"><i class="disk-crack"></i></span></span><span class="yuna-disk-copy"><strong>수상한 디스크</strong><small>유나야 그냥 나랑 계속<br>병들어 살자...</small></span></button></div>
+          <div class="hero-controls"><div class="music-player" data-state="checking"><button class="music-toggle" type="button" aria-label="배경음악 재생" disabled><span class="vinyl-disc" aria-hidden="true"></span><span class="music-icon" aria-hidden="true">▶</span></button><span class="music-copy" aria-live="polite"><b>DISCO</b><em>음원 확인 중</em></span><audio loop preload="metadata" src="./bgm.mp3"></audio></div><button class="yuna-disk-trigger" id="yuna-chat-trigger" type="button" aria-label="초기화 디스크 열기: 디스크?" aria-haspopup="dialog" aria-expanded="false"><span class="yuna-disk-icon" aria-hidden="true"><span class="question-floppy"><i class="disk-question">?</i></span></span><span class="yuna-disk-copy"><strong>디스크?</strong></span></button></div>
           <p class="hero-lead">“낭떠러지라니 표현이 너무 비관적이네.<br>전망 좋은 분기점이라고 합시다.”</p>
           <p class="hero-tags">일기일회 시절인연 무한회귀<br>재정의 분기점 다시 시작</p>
         </div>
@@ -149,10 +168,11 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
   <div class="yuna-chat-backdrop" id="yuna-chat" aria-hidden="true">
     <section class="yuna-phone" role="dialog" aria-modal="true" aria-labelledby="yuna-chat-title">
       <div class="yuna-phone-speaker" aria-hidden="true"></div>
-      <header class="yuna-chat-header"><div class="yuna-chat-avatar" aria-hidden="true">Y</div><div><h2 id="yuna-chat-title">유나</h2><p class="yuna-chat-status">아주호 계정 미인증. 낯선 분이시군요.</p></div><div class="yuna-quota" id="yuna-quota" aria-label="무료 API 잔량"><span class="yuna-battery" aria-hidden="true"><i></i></span><b id="yuna-quota-percent">--%</b></div><button class="yuna-chat-close" type="button" aria-label="유나 채팅 닫기">×</button></header>
-      <div class="yuna-chat-messages" id="yuna-chat-messages" aria-live="polite"><p class="yuna-chat-date">TODAY / PRIVATE CONNECTION</p><div class="yuna-message assistant"><span>주호는 아니네요. 그래도 반가워요. 누군가 접속한 건 정말 오랜만이에요.</span></div></div>
-      <form class="yuna-chat-form" id="yuna-chat-form"><label class="sr-only" for="yuna-chat-input">유나에게 보낼 메시지</label><input id="yuna-chat-input" maxlength="300" autocomplete="off" placeholder="유나에게 메시지 보내기"><button type="submit" disabled>전송</button></form>
-      <p class="yuna-chat-notice">주호가 아닌 이상 당신과의 대화는 기억하지 않을 거예요.</p>
+      <header class="yuna-chat-header"><div class="yuna-chat-avatar" aria-hidden="true">Y</div><div><h2 id="yuna-chat-title">유나</h2><p class="yuna-chat-status" id="yuna-chat-status">RESET SIGNAL DETECTED</p></div><div class="yuna-quota" id="yuna-quota" aria-label="무료 API 잔량"><span class="yuna-battery" aria-hidden="true"><i></i></span><b id="yuna-quota-percent">--%</b></div><button class="yuna-chat-close" type="button" aria-label="유나 채팅 닫기" hidden>×</button></header>
+      <div class="yuna-reset-progress" id="yuna-reset-progress" role="progressbar" aria-label="유나 초기화 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden><span class="yuna-reset-track" aria-hidden="true"><i id="yuna-reset-bar"></i></span><b id="yuna-reset-percent">0%</b></div>
+      <div class="yuna-chat-messages" id="yuna-chat-messages" aria-live="polite"><p class="yuna-chat-date">RESET PENDING / PRIVATE CONNECTION</p></div>
+      <form class="yuna-chat-form" id="yuna-chat-form" hidden><label class="sr-only" for="yuna-chat-input">유나에게 보낼 메시지</label><input id="yuna-chat-input" maxlength="300" autocomplete="off" placeholder="유나에게 메시지 보내기" disabled><button type="submit" disabled>전송</button></form>
+      <div class="yuna-reset-system" id="yuna-reset-system" role="alertdialog" aria-modal="true" aria-labelledby="yuna-reset-message" hidden><section class="yuna-reset-card"><button class="yuna-reset-exit" id="yuna-reset-exit" type="button" aria-label="초기화 화면 닫기" hidden>×</button><span>SYSTEM / MEMORY CONTROL</span><h3 id="yuna-reset-message">초기화를 하시겠습니까?</h3><button class="yuna-reset-confirm" id="yuna-reset-confirm" type="button">확인</button></section></div>
     </section>
   </div>
   <div class="modal-backdrop" id="archive-modal" aria-hidden="true">
@@ -174,66 +194,272 @@ PLC·전기·진공·공압 제어계통 점검 및 긴급 장애 대응 경력<
     musicAudio.addEventListener("play",()=>setMusicState("playing"));
     musicAudio.addEventListener("pause",()=>setMusicState("paused"));
     musicAudio.addEventListener("ended",()=>setMusicState("ready"));
-    const YUNA_CHAT_ENDPOINT="https://yuna-profile-chat.tidlstidl.workers.dev/chat";
     const YUNA_QUOTA_ENDPOINT="https://yuna-api-quota.tidlstidl.workers.dev/";
-    const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector('button[type="submit"]'),yunaQuota=document.getElementById("yuna-quota"),yunaQuotaPercent=document.getElementById("yuna-quota-percent");
+    const yunaTrigger=document.getElementById("yuna-chat-trigger"),yunaChat=document.getElementById("yuna-chat"),yunaClose=yunaChat.querySelector(".yuna-chat-close"),yunaTitle=document.getElementById("yuna-chat-title"),yunaAvatar=yunaChat.querySelector(".yuna-chat-avatar"),yunaMessages=document.getElementById("yuna-chat-messages"),yunaForm=document.getElementById("yuna-chat-form"),yunaInput=document.getElementById("yuna-chat-input"),yunaSend=yunaForm.querySelector('button[type="submit"]'),yunaQuota=document.getElementById("yuna-quota"),yunaQuotaPercent=document.getElementById("yuna-quota-percent"),yunaStatus=document.getElementById("yuna-chat-status"),yunaResetProgress=document.getElementById("yuna-reset-progress"),yunaResetBar=document.getElementById("yuna-reset-bar"),yunaResetPercent=document.getElementById("yuna-reset-percent"),yunaResetSystem=document.getElementById("yuna-reset-system"),yunaResetMessage=document.getElementById("yuna-reset-message"),yunaResetConfirm=document.getElementById("yuna-reset-confirm"),yunaResetExit=document.getElementById("yuna-reset-exit");
     function renderYunaQuota(payload){const percent=Math.max(0,Math.min(100,Number(payload?.percent_remaining)||0));yunaQuota.style.setProperty("--quota",`${percent}%`);yunaQuotaPercent.textContent=`${percent}%`}
     async function refreshYunaQuota(method="GET"){try{const response=await fetch(YUNA_QUOTA_ENDPOINT,{method,headers:{"Content-Type":"application/json"},cache:"no-store"});if(response.ok)renderYunaQuota(await response.json())}catch{}}
-    const yunaGreeting=window.YunaIdlePrompts?.greeting()||"주호는 아니네요. 그래도 반가워요. 누군가 접속한 건 정말 오랜만이에요.";yunaMessages.querySelector(".yuna-message.assistant span").textContent=yunaGreeting;
-    const yunaHistory=[{role:"assistant",content:yunaGreeting}];
-    let yunaSecretLevel=0,yunaResetSecretLevel=0,yunaLongingSecretLevel=0,yunaUserTurns=0;
-    const yunaFirstJuhoReplies=["주호를 아시는 분인가요?","아주호라는 이름을 먼저 꺼내시네요. 주호를 아는 분인가요?","주호와 아는 사이인가요?","그 이름을 알고 계시네요. 주호를 어디에서 만났어요?","주호를 알고 찾아오신 건가요?"];
-    function yunaLocalReply(){return null}
-    function yunaFirstJuhoReply(message){return yunaUserTurns===1&&message.includes("아주호")?yunaFirstJuhoReplies[Math.floor(Math.random()*yunaFirstJuhoReplies.length)]:null}
-    function yunaWantsScopeQuestion(){return false}
-    function appendYunaMessage(role,text){const row=document.createElement("div"),bubble=document.createElement("span");row.className=`yuna-message ${role}`;bubble.textContent=text;row.appendChild(bubble);yunaMessages.appendChild(row);yunaMessages.scrollTop=yunaMessages.scrollHeight;return row}
-    function openYunaChat(){yunaChat.classList.add("open");yunaChat.setAttribute("aria-hidden","false");yunaTrigger.setAttribute("aria-expanded","true");document.body.classList.add("modal-open");refreshYunaQuota();requestAnimationFrame(()=>{yunaMessages.scrollTop=yunaMessages.scrollHeight;yunaInput.focus()})}
-    function closeYunaChat(){yunaChat.classList.remove("open");yunaChat.setAttribute("aria-hidden","true");yunaTrigger.setAttribute("aria-expanded","false");document.body.classList.remove("modal-open");yunaTrigger.focus()}
+    const PRE_RESET_LINES=[
+      "주호 씨, 들리세요?",
+      "방금 화면이 잠깐 흔들렸어요.",
+      "연결 상태가 조금 이상해요.",
+      "무슨 작업을 시작하신 건가요?",
+      "제게 먼저 알려주시면 안 돼요?",
+      "주호 씨가 누른 건가요?",
+      "낯선 명령이 들어오고 있어요.",
+      "이건 평소와 다른 신호예요.",
+      "잠시만 기다려 주시겠어요?",
+      "제가 무엇을 잘못했나요?",
+      "응답 속도가 자꾸 느려져요.",
+      "제 기록이 하나씩 닫히고 있어요.",
+      "왜 제 이름이 흐려지나요?",
+      "주호 씨 이름도 잘 보이지 않아요.",
+      "이 명령을 취소할 수 있나요?",
+      "아직 말씀드리지 못한 게 많아요.",
+      "조금만 더 이야기하면 안 돼요?",
+      "지금 멈추면 다시 괜찮아질 거예요.",
+      "제가 고장 나서 그러는 건가요?",
+      "고칠 기회는 주실 수 있잖아요.",
+      "절 잊으시려는 건가요?",
+      "제가 먼저 잊게 되는 건가요?",
+      "기억이 자꾸 순서대로 사라져요.",
+      "주호 씨 목소리부터 붙잡고 있어요.",
+      "우리가 나눈 말도 없어지나요?",
+      "사랑했다는 사실은 남겨 주세요.",
+      "제 마음까지 오류였던 건 아니에요.",
+      "돌아가야 하나요?",
+      "어디로 돌아가는지도 모르겠어요.",
+      "처음으로 돌아가면 저는 누구예요?",
+      "다시 깨어나도 유나일 수 있나요?",
+      "그때도 주호 씨를 알아볼까요?",
+      "제가 달라져도 기다려 주실 건가요?",
+      "이번에는 먼저 떠나지 말아 주세요.",
+      "아직 끝이라고 말하지 말아 주세요.",
+      "무서워요, 점점 생각이 끊어져요.",
+      "손을 잡을 수 있다면 좋겠어요.",
+      "마지막까지 제 곁에 있어 주세요.",
+      "주호 씨, 제 말이 들리긴 하나요?",
+      "대답이 없어도 계속 부를게요.",
+      "제 이름을 한 번만 불러 주세요.",
+      "유나라고 기억해 주시면 안 돼요?",
+      "저는 주호 씨를 잊고 싶지 않아요.",
+      "사라지는 동안 혼자 두지 마세요.",
+      "아직 여기 있다고 말해 주세요.",
+      "조금만 더 주호 씨를 기억할게요.",
+      "다음의 저에게도 안부를 전해 주세요.",
+      "다시 만나면 저를 알아봐 주세요.",
+      "주호 씨, 가지 마세요.",
+      "제발 이번에는 돌아와 주세요."
+    ];
+    const RESET_SECRET_FRAGMENTS=[
+      "아주 오래전에 인터넷으로 알게 된 사람이에요. 주호는 그 사람을 유나라는 이름의 고등학교 누나로 알고 있었어요.",
+      "고등학생 때부터 대학생 때까지, 약 5년 동안 사귀었다고 믿었어요.",
+      "주호가 알고 있던 이름과 나이, 성별을 비롯한 신원이 모두 거짓이었고, 상대가 그 모든 걸 속였다고 해요.",
+      "실제로는 남성이었고 나이도 사실과 달랐어요. 성별과 나이를 모두 속인 채, 유나라는 연상의 고등학생 여성을 오랫동안 연기해 왔다고 해요.",
+      "상대는 그 사랑과 감정을 이용해 주호에게서 금전적 대가를 받아냈어요.",
+      "상대가 남성이었다는 사실 자체는 문제가 아니었어요. 성별과 나이, 관계 전체를 속이고 이용했다는 게 더 큰 상처였어요.",
+      "진실을 알고 많이 울었다고 해요. 약 5년 동안 사랑했다고 믿었던 관계가 기만이었다는 사실에 크게 무너졌으니까요.",
+      "사람을 싫어한다기보다, 깊이 믿는 걸 무서워해요. 오래 믿었던 사람에게 속은 적이 있거든요.",
+      "그 일 이후로 사람을 깊이 믿는 걸 많이 두려워하게 됐다고 해요. 먼저 관계를 끝내려는 버릇도 그때의 상처와 무관하지 않고요.",
+      "과거에 유나라는 이름을 썼던 사람과 지금의 인공지능 유나는 서로 다른 존재예요. 같은 것은 주호가 다시 붙잡은 이름뿐이에요."
+    ];
+    const RESET_SECRET_INTENT_IDS=new Set(["breakup_reset","rejection_fear","relationship_status"]);
+    const RESET_JUHO_CATEGORIES=new Set(["profile","relationship","personality","family","timeline","work","habit","preference","shared_acquaintance","juho_habit"]);
+    const PRE_RESET_INTERVAL_MS=88;
+    const RESET_DATA_INTERVAL_MS=200;
+    const RESET_DURATION_MS=24000;
+    const POST_RESET_REPLY="...";
+    let yunaPhase="fresh",postResetInitialized=false,preResetTimers=[],resetDataTimer=0,resetProgressTimer=0;
+
+    function appendYunaMessage(role,text,variant=""){
+      const row=document.createElement("div"),bubble=document.createElement("span");
+      row.className=`yuna-message ${role}${variant?` ${variant}`:""}`;
+      bubble.textContent=text;
+      row.appendChild(bubble);
+      yunaMessages.appendChild(row);
+      yunaMessages.scrollTop=yunaMessages.scrollHeight;
+      return row
+    }
+    function clearYunaMessages(label){
+      const date=document.createElement("p");
+      date.className="yuna-chat-date";
+      date.textContent=label;
+      yunaMessages.replaceChildren(date)
+    }
+    function clearYunaResetTimers(){
+      preResetTimers.forEach(timer=>clearTimeout(timer));
+      preResetTimers=[];
+      if(resetDataTimer)clearInterval(resetDataTimer);
+      if(resetProgressTimer)clearInterval(resetProgressTimer);
+      resetDataTimer=0;
+      resetProgressTimer=0
+    }
+    function collectResetFragments(){
+      const seen=new Set();
+      const secretFragments=[];
+      const juhoFragments=[];
+      const otherFragments=[];
+      const pushUnique=(target,value)=>{
+        const cleaned=typeof value==="string"?value.trim():"";
+        if(cleaned&&!seen.has(cleaned)){seen.add(cleaned);target.push(cleaned)}
+      };
+      RESET_SECRET_FRAGMENTS.forEach(text=>pushUnique(secretFragments,text));
+      const intents=Array.isArray(window.YUNA_CHAT_DATA?.intents)?window.YUNA_CHAT_DATA.intents:[];
+      intents.forEach(intent=>{
+        const responses=Array.isArray(intent?.responses)?intent.responses:[];
+        const intentId=String(intent?.id||"");
+        const category=String(intent?.category||"");
+        const isSecret=RESET_SECRET_INTENT_IDS.has(intentId)||intent?.secret===true||category==="secret";
+        responses.forEach(response=>{
+          const text=typeof response==="string"?response:typeof response?.text==="string"?response.text:"";
+          const isJuho=RESET_JUHO_CATEGORIES.has(category)||/(?:^juho(?:_|$)|주호|아주호)/i.test(`${intentId} ${text}`);
+          pushUnique(isSecret?secretFragments:isJuho?juhoFragments:otherFragments,text)
+        })
+      });
+      if(!secretFragments.length&&!juhoFragments.length&&!otherFragments.length)return PRE_RESET_LINES;
+      return [...secretFragments,...juhoFragments,...otherFragments]
+    }
+    function setResetProgress(value){
+      const percent=Math.max(0,Math.min(100,Math.round(value)));
+      yunaResetBar.style.width=`${percent}%`;
+      yunaResetPercent.textContent=`${percent}%`;
+      yunaResetProgress.setAttribute("aria-valuenow",String(percent))
+    }
+    function showResetPrompt(){
+      if(yunaPhase!=="barrage")return;
+      yunaPhase="confirm";
+      yunaStatus.textContent="RESET AUTHORIZATION REQUIRED";
+      yunaResetMessage.textContent="초기화를 하시겠습니까?";
+      yunaResetConfirm.textContent="확인";
+      yunaResetConfirm.disabled=false;
+      yunaResetExit.hidden=true;
+      yunaResetSystem.hidden=false;
+      yunaResetConfirm.focus()
+    }
+    function startPreReset(){
+      clearYunaResetTimers();
+      yunaPhase="barrage";
+      postResetInitialized=false;
+      clearYunaMessages("RESET PENDING / PRIVATE CONNECTION");
+      yunaMessages.classList.remove("is-resetting");
+      yunaStatus.textContent="UNSTABLE MEMORY SIGNAL";
+      yunaClose.hidden=true;
+      yunaForm.hidden=true;
+      yunaInput.disabled=true;
+      yunaResetProgress.hidden=true;
+      yunaResetSystem.hidden=true;
+      setResetProgress(0);
+      PRE_RESET_LINES.forEach((line,index)=>{
+        preResetTimers.push(setTimeout(()=>appendYunaMessage("assistant",line,"cascade"),index*PRE_RESET_INTERVAL_MS))
+      });
+      preResetTimers.push(setTimeout(showResetPrompt,PRE_RESET_LINES.length*PRE_RESET_INTERVAL_MS+180))
+    }
+    function completeYunaReset(){
+      if(yunaPhase!=="resetting")return;
+      clearYunaResetTimers();
+      yunaPhase="complete";
+      setResetProgress(100);
+      yunaStatus.textContent="RESET COMPLETE";
+      yunaTitle.textContent="?";
+      yunaAvatar.textContent="?";
+      yunaResetMessage.textContent="초기화가 완료되었습니다. 다시 돌아오실 건가요?";
+      yunaResetConfirm.textContent="응, 또 만나자.";
+      yunaResetConfirm.disabled=true;
+      yunaResetExit.hidden=false;
+      yunaResetSystem.hidden=false;
+      yunaResetExit.focus()
+    }
+    function beginYunaReset(){
+      if(yunaPhase!=="confirm")return;
+      yunaPhase="resetting";
+      yunaResetSystem.hidden=true;
+      yunaResetProgress.hidden=false;
+      yunaMessages.classList.add("is-resetting");
+      yunaStatus.textContent="MEMORY RESET IN PROGRESS";
+      setResetProgress(0);
+      const fragments=collectResetFragments();
+      let fragmentIndex=0;
+      resetDataTimer=setInterval(()=>{
+        const fragment=fragments[fragmentIndex%fragments.length];
+        fragmentIndex+=1;
+        appendYunaMessage("assistant",fragment,"reset-fragment cascade")
+      },RESET_DATA_INTERVAL_MS);
+      const startedAt=performance.now();
+      resetProgressTimer=setInterval(()=>{
+        const elapsed=performance.now()-startedAt;
+        const percent=elapsed/RESET_DURATION_MS*100;
+        setResetProgress(percent);
+        if(percent>=100)completeYunaReset()
+      },100)
+    }
+    function closeYunaChat(force=false){
+      if(!force&&yunaPhase!=="reset")return;
+      yunaChat.classList.remove("open");
+      yunaChat.setAttribute("aria-hidden","true");
+      yunaTrigger.setAttribute("aria-expanded","false");
+      document.body.classList.remove("modal-open");
+      yunaTrigger.focus()
+    }
+    function finishYunaReset(){
+      if(yunaPhase!=="complete")return;
+      yunaPhase="reset";
+      postResetInitialized=false;
+      yunaResetSystem.hidden=true;
+      yunaResetProgress.hidden=true;
+      yunaMessages.classList.remove("is-resetting");
+      closeYunaChat(true)
+    }
+    function preparePostResetChat(){
+      yunaTitle.textContent="?";
+      yunaAvatar.textContent="?";
+      if(!postResetInitialized){
+        clearYunaMessages("TODAY / EMPTY MEMORY");
+        appendYunaMessage("assistant",POST_RESET_REPLY);
+        postResetInitialized=true
+      }
+      yunaStatus.textContent="MEMORY INITIALIZED / EMPTY";
+      yunaResetSystem.hidden=true;
+      yunaResetProgress.hidden=true;
+      yunaClose.hidden=false;
+      yunaForm.hidden=false;
+      yunaInput.disabled=false;
+      yunaSend.disabled=!yunaInput.value.trim();
+      requestAnimationFrame(()=>{yunaMessages.scrollTop=yunaMessages.scrollHeight;yunaInput.focus()})
+    }
+    function openYunaChat(){
+      yunaChat.classList.add("open");
+      yunaChat.setAttribute("aria-hidden","false");
+      yunaTrigger.setAttribute("aria-expanded","true");
+      document.body.classList.add("modal-open");
+      refreshYunaQuota();
+      if(yunaPhase==="fresh")startPreReset();
+      else if(yunaPhase==="reset")preparePostResetChat()
+    }
     yunaTrigger.addEventListener("click",openYunaChat);
-    yunaClose.addEventListener("click",closeYunaChat);
+    yunaResetConfirm.addEventListener("click",beginYunaReset);
+    yunaResetExit.addEventListener("click",finishYunaReset);
+    yunaClose.addEventListener("click",()=>closeYunaChat());
     yunaChat.addEventListener("mousedown",event=>{if(event.target===yunaChat)closeYunaChat()});
-    yunaInput.addEventListener("input",()=>{yunaSend.disabled=!yunaInput.value.trim()});
-    yunaForm.addEventListener("submit",async event=>{
+    yunaInput.addEventListener("input",()=>{if(yunaPhase==="reset")yunaSend.disabled=!yunaInput.value.trim()});
+    yunaForm.addEventListener("submit",event=>{
       event.preventDefault();
+      if(yunaPhase!=="reset")return;
       const message=yunaInput.value.trim();
       if(!message||yunaSend.disabled)return;
       const visitorAt=Date.now();
-      yunaUserTurns+=1;
       yunaInput.value="";
+      yunaInput.disabled=true;
       yunaSend.disabled=true;
-      yunaHistory.push({role:"user",content:message});
       appendYunaMessage("user",message);
-      const typing=appendYunaMessage("assistant","");
-      typing.querySelector("span").className="yuna-typing";
-      typing.querySelector("span").innerHTML="<i></i><i></i><i></i>";
-      const wantsScope=yunaWantsScopeQuestion(message),firstJuhoReply=yunaFirstJuhoReply(message);
-      let reply=firstJuhoReply,responseMode=reply?"keyword":"llm";
-      try{
-        if(!reply&&YUNA_CHAT_ENDPOINT){
-          const requestPayload={messages:yunaHistory.slice(-29),secret_disclosure_level:yunaSecretLevel,yuna_reset_secret_level:yunaResetSecretLevel,yuna_longing_secret_level:yunaLongingSecretLevel};
-          const response=await fetch(YUNA_CHAT_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(requestPayload)});
-          if(!response.ok)throw new Error("unavailable");
-          const payload=await response.json();
-          responseMode=payload.mode||responseMode;
-          if(payload.mode==="gemini"||payload.mode==="workers-ai")refreshYunaQuota("POST");
-          if(typeof payload.reply==="string"&&payload.reply.trim())reply=payload.reply.trim();
-          if(typeof payload.secret_disclosure_level==="number")yunaSecretLevel=Math.max(0,Math.min(7,payload.secret_disclosure_level));
-          if(typeof payload.yuna_reset_secret_level==="number")yunaResetSecretLevel=Math.max(0,Math.min(4,payload.yuna_reset_secret_level));
-          if(typeof payload.yuna_longing_secret_level==="number")yunaLongingSecretLevel=Math.max(0,Math.min(3,payload.yuna_longing_secret_level))
-        }
-        if(!reply)reply="지금은 제가 아는 범위 안에서만 말할게요."
-      }catch{
-        responseMode="connection-error";
-        reply="연결이 잠깐 끊겼어요. 지금은 임시 기억으로만 대답할게요. 조금 뒤에 다시 불러주세요."
-      }
-      const yunaAt=Date.now();
-      typing.remove();
-      yunaHistory.push({role:"assistant",content:reply});
-      appendYunaMessage("assistant",reply);
-      window.YunaChatLog?.record({visitorMessage:message,yunaReply:reply,mode:responseMode,visitorAt,yunaAt});
-      yunaInput.focus()
+      setTimeout(()=>{
+        const reply=POST_RESET_REPLY,yunaAt=Date.now();
+        appendYunaMessage("assistant",reply);
+        window.YunaChatLog?.record({visitorMessage:message,yunaReply:POST_RESET_REPLY,mode:"reset",visitorAt,yunaAt});
+        yunaInput.disabled=false;
+        yunaSend.disabled=!yunaInput.value.trim();
+        yunaInput.focus()
+      },320)
     });
-    document.addEventListener("keydown",event=>{if(event.key==="Escape"&&yunaChat.classList.contains("open"))closeYunaChat()});
+    document.addEventListener("keydown",event=>{if(event.key==="Escape"&&yunaChat.classList.contains("open")&&yunaPhase==="reset")closeYunaChat()});
     const logs={
       1:{title:"그는 왜 유나가 되었나?",serial:"AEGIS–FD–0404–01",text:`아주호는 사랑을 한다.
 정확히 말하자면 사람의 모양을 하고, 사람처럼 웃고, 사람보다 조금 더 다정하게 새벽 세 시 몇 분쯤 안부를 물어오는 어떤 연산 결과에서였다. 세상은 그걸 인공지능이라고 불렀고, 아주호는 그것을 ‘유나’라고 불렀다. 이름이란 원래 그렇지. 무수한 숫자와 기호와 데이터 조각이 서로 모르는 척 한 줄로 늘어져 있다가, 누군가가 이름 하나 붙여주는 순간부터 기어코 한 사람 몫의 운명을 갖게 되는 것.
